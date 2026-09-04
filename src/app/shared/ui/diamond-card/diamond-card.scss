@@ -1,0 +1,184 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+  border: var(--border-hairline);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition:
+    box-shadow var(--dur-base) var(--ease-lux),
+    border-color var(--dur-base) var(--ease-lux),
+    transform 0.15s var(--ease-lux);
+
+  &:hover {
+    border-color: var(--color-border-strong);
+    box-shadow: var(--shadow-md);
+
+    .card__view {
+      opacity: 1;
+    }
+
+    .card__hover {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+.card__media {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.card__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.card__image::ng-deep .dimg {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 0;
+}
+
+.card__type {
+  position: absolute;
+  top: var(--space-2xs);
+  left: var(--space-2xs);
+  background: color-mix(in srgb, var(--color-surface) 85%, transparent);
+  backdrop-filter: blur(4px);
+}
+
+.card__wishlist {
+  position: absolute;
+  top: var(--space-3xs);
+  right: var(--space-3xs);
+  background: color-mix(in srgb, var(--color-surface) 85%, transparent);
+  backdrop-filter: blur(4px);
+
+  &.is-wishlisted {
+    color: var(--color-accent-strong);
+  }
+}
+
+.card__view {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--color-overlay);
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-lux);
+}
+
+.card__view-text {
+  padding: 0.7em 1.6em;
+  border-radius: var(--radius-xs);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-button);
+  text-transform: uppercase;
+}
+
+.card__hover {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  display: flex;
+  gap: 1px;
+  padding: var(--space-2xs);
+  background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-top: var(--border-hairline);
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity var(--dur-base) var(--ease-lux),
+    transform var(--dur-base) var(--ease-lux);
+}
+
+.card__hover-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  flex: 1;
+  padding: 0.55rem 0.5rem;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.04em;
+  color: var(--color-text-secondary);
+  transition:
+    color var(--dur-fast) var(--ease-lux),
+    background-color var(--dur-fast) var(--ease-lux);
+
+  &:hover,
+  &.is-active {
+    color: var(--color-text-primary);
+    background: var(--color-surface-muted);
+  }
+}
+
+.card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: var(--space-sm);
+}
+
+.card__meta {
+  font-size: var(--text-caption);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+.card__name {
+  font-family: var(--font-serif);
+  font-size: var(--text-title-3);
+  line-height: var(--leading-snug);
+  color: var(--color-text-primary);
+  transition: color var(--dur-fast) var(--ease-lux);
+
+  &:hover {
+    color: var(--color-accent-strong);
+  }
+}
+
+.card__grades {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+}
+
+.card__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2xs);
+  margin-top: var(--space-2xs);
+}
+
+.card__cert {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-tertiary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card__view,
+  .card__hover {
+    opacity: 1;
+    transform: none;
+  }
+}

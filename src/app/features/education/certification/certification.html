@@ -1,0 +1,37 @@
+<section class="edu">
+  <div class="edu__container">
+    <ak-breadcrumb [items]="breadcrumbs" />
+    <ak-section-heading title="Diamond Certification" subtitle="A diamond certificate is an independent, expert assessment of a stone's quality. Every diamond we sell comes with one." />
+
+    <div class="cert">
+      <div class="cert__explain">
+        <h2>What a certificate tells you</h2>
+        <ul class="cert__list">
+          <li><strong>Carat weight</strong> — the diamond's weight to the hundredth of a carat.</li>
+          <li><strong>Colour grade</strong> — assessed against master stones under standardised lighting.</li>
+          <li><strong>Clarity grade</strong> — the nature, size and position of inclusions at 10× magnification.</li>
+          <li><strong>Cut grade</strong> — how well the diamond interacts with light (round brilliant only).</li>
+          <li><strong>Measurements, polish, symmetry, fluorescence</strong> — additional quality indicators.</li>
+        </ul>
+      </div>
+
+      <div class="cert__labs">
+        <h2>Recognised laboratories</h2>
+        <ul class="labs">
+          @for (lab of labs; track lab.name) {
+            <li class="labs__item" [class.is-gold]="lab.gold">
+              <span class="labs__name">{{ lab.name }}</span>
+              <span class="labs__full">{{ lab.full }}</span>
+            </li>
+          }
+        </ul>
+      </div>
+
+      <div class="cert__verify">
+        <h2>Verify your diamond</h2>
+        <p>Every certified diamond has a unique report number. You can verify a diamond's specifications directly on the issuing laboratory's website.</p>
+        <a akButton variant="primary" routerLink="/diamonds">Explore Certified Diamonds</a>
+      </div>
+    </div>
+  </div>
+</section>

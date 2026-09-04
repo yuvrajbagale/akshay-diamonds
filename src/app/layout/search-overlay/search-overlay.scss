@@ -1,0 +1,88 @@
+.search {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+}
+
+.search__overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--color-overlay);
+  animation: ak-fade-in var(--dur-base) var(--ease-lux) both;
+}
+
+.search__sheet {
+  position: relative;
+  background: var(--color-bg);
+  border-bottom: var(--border-hairline);
+  box-shadow: var(--shadow-lg);
+  animation: ak-slide-down var(--dur-slow) var(--ease-lux) both;
+}
+
+.search__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding-block: var(--space-sm);
+  border-bottom: var(--border-hairline);
+}
+
+.search__bar-icon {
+  color: var(--color-text-tertiary);
+}
+
+.search__input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-serif);
+  font-size: var(--text-title-2);
+  color: var(--color-text-primary);
+
+  &::placeholder {
+    color: var(--color-text-tertiary);
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  // Remove the native clear affordance; the icon button closes instead.
+  &::-webkit-search-cancel-button {
+    display: none;
+  }
+}
+
+.search__body {
+  padding-block: var(--space-md) var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.search__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+}
+
+.search__chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55em 1.1em;
+  border: var(--border-hairline-strong);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+  transition:
+    color var(--dur-fast) var(--ease-lux),
+    border-color var(--dur-fast) var(--ease-lux),
+    background-color var(--dur-fast) var(--ease-lux);
+
+  &:hover {
+    color: var(--color-text-primary);
+    border-color: var(--color-text-primary);
+    background: var(--color-surface);
+  }
+}

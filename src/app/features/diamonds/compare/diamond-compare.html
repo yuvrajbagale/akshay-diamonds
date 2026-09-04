@@ -1,0 +1,81 @@
+@if (selected(); as items) {
+  <section class="compare">
+    <div class="container">
+      <ak-breadcrumb [items]="[{ label:'Diamonds', route:'/diamonds' },{ label:'Compare' }]" />
+      <div class="compare__head">
+        <div>
+          <p class="ak-eyebrow">Compare Diamonds</p>
+          <h1 class="ak-h2">Which one speaks to you?</h1>
+        </div>
+        @if (items.length > 0) {
+          <button akButton variant="ghost" (click)="compare.clear()">Clear all</button>
+        }
+      </div>
+      <div class="compare__layout">
+        <div class="compare__sidebar">
+          @for (d of items; track d.id) {
+            <div class="compare__diamond">
+              <button class="compare__remove" title="Remove" (click)="onRemove(d.id)">&times;</button>
+              <div class="compare__shape">
+                <ak-shape-glyph [shape]="shapeOf(d)" [size]="56" />
+              </div>
+              <h3 class="compare__name">{{ d.name }}</h3>
+              <p class="compare__meta">{{ d.shape }} &middot; {{ d.carat }} ct</p>
+              <ak-price [value]="d.pricing.amount" />
+              <div class="compare__actions">
+                <button akButton variant="accent" size="sm" block (click)="addToCart(d)">Add to Bag</button>
+                <button akButton variant="ghost" size="sm" block routerLink="/diamonds/{{ d.slug }}">View</button>
+              </div>
+            </div>
+          } @empty {
+            <ak-empty-state icon="compare" title="Select diamonds to compare" description="Add up to four diamonds from any listing to see them side by side.">
+              <a akButton routerLink="/diamonds">Browse Diamonds</a>
+            </ak-empty-state>
+          }
+        </div>
+        @if (items.length > 0) {
+          <div class="compare__table-wrap">
+            <table class="compare__table">
+              <tbody>
+                @for (row of rows(); track row.key) {
+                  <tr>
+                    <th>{{ row.label }}</th>
+                    @for (d of items; track d.id) {
+                      <td>
+                        @if (row.key === 'shape') {
+                          <span class="compare__shape-cell">
+                            <ak-shape-glyph [shape]="shapeOf(d)" [size]="24" />
+                            {{ d.shape }}
+                          </span>
+                        } @else if (row.key === 'price') {
+                          <ak-price [value]="d.pricing.amount" />
+                        } @else if (row.key === 'carat') {
+                          <span [class.best]="row.highlight && isBestCarat(d.carat)">{{ d.carat }} ct</span>
+                        } @else if (row.key === 'color') {
+                          <span [class.best]="row.highlight && isBestColor(d.color)">{{ d.color }}</span>
+                        } @else if (row.key === 'clarity') {
+                          <span [class.best]="row.highlight && isBestClarity(d.clarity)">{{ d.clarity }}</span>
+                        } @else if (row.key === 'cut') {
+                          <span [class.best]="row.highlight && isBestCut(d.cut)">{{ d.cut }}</span>
+                        } @else {
+                          {{ valueFor(row.key, d) }}
+                        }
+                      </td>
+                    }
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+} @else {
+  <div class="container">
+    <ak-empty-state icon="compare" title="Select diamonds to compare" description="Add up to four diamonds from any listing to see them side by side.">
+      <a akButton routerLink="/diamonds">Browse Diamonds</a>
+      <a akButton variant="outline" routerLink="/diamonds">Start Shopping</a>
+    </ak-empty-state>
+  </div>
+}

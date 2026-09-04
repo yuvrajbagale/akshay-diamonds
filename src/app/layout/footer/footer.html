@@ -1,0 +1,146 @@
+﻿<footer class="footer theme-dark">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <ak-brand-logo />
+        <p class="footer__statement">
+          Exceptional natural and lab-grown diamonds â€” thoughtfully selected, honestly priced and
+          transparently presented.
+        </p>
+
+        <form class="footer__form" (submit)="subscribe($event)">
+          <label class="footer__form-label" for="newsletter-email">A note when something beautiful arrives</label>
+          <div class="footer__form-row">
+            <label class="u-visually-hidden" for="newsletter-email">Email address</label>
+            <input
+              id="newsletter-email"
+              #newsletterInput
+              class="footer__input"
+              type="email"
+              name="email"
+              autocomplete="email"
+              placeholder="Your email address"
+              [value]="email()"
+              (input)="onInput(newsletterInput.value)"
+            />
+            <button akButton type="submit" variant="accent" size="sm" [disabled]="subscribing()" [loading]="subscribing()">
+              Notify Me
+            </button>
+          </div>
+          <p class="footer__form-note">Occasional notes only. No noise.</p>
+        </form>
+      </div>
+
+      <nav class="footer__columns" aria-label="Footer">
+        <div class="footer__column">
+          <p class="footer__column-title">Diamonds</p>
+          <ul class="footer__links">
+            <li><a routerLink="/diamonds">All Diamonds</a></li>
+            <li><a routerLink="/diamonds">Natural Diamonds</a></li>
+            <li><a routerLink="/diamonds">Lab-Grown Diamonds</a></li>
+            <li><a routerLink="/compare">Compare Diamonds</a></li>
+            <li><a routerLink="/build-your-ring">Build Your Ring</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__column">
+          <p class="footer__column-title">Jewellery</p>
+          <ul class="footer__links">
+            <li><a routerLink="/jewellery/engagement-rings">Engagement Rings</a></li>
+            <li><a routerLink="/jewellery/wedding-bands">Wedding Bands</a></li>
+            <li><a routerLink="/jewellery/earrings">Earrings</a></li>
+            <li><a routerLink="/jewellery/necklaces">Necklaces</a></li>
+            <li><a routerLink="/jewellery/pendants">Pendants</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__column">
+          <p class="footer__column-title">Collections</p>
+          <ul class="footer__links">
+            <li><a routerLink="/collections/eternity">The Eternity Collection</a></li>
+            <li><a routerLink="/collections/classic">The Classic Collection</a></li>
+            <li><a routerLink="/collections/heritage">The Heritage Collection</a></li>
+            <li><a routerLink="/collections/modern">The Modern Collection</a></li>
+            <li><a routerLink="/collections/bridal">The Bridal Collection</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__column">
+          <p class="footer__column-title">Company</p>
+          <ul class="footer__links">
+            <li><a routerLink="/our-story">Our Story</a></li>
+            <li><a routerLink="/consultation">Consultation</a></li>
+            <li><a routerLink="/learn/four-cs">The 4Cs</a></li>
+            <li><a routerLink="/learn/certification">Certification</a></li>
+            <li><a routerLink="/account">My Account</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__column footer__column--contact">
+          <p class="footer__column-title">Visit &amp; Contact</p>
+          <ul class="footer__contact">
+            <li>
+              <ak-icon name="map-pin" size="sm" />
+              <span>{{ brand.address.line1 }}, {{ brand.address.city }}</span>
+            </li>
+            <li>
+              <ak-icon name="clock" size="sm" />
+              <span>{{ brand.hours }}</span>
+            </li>
+            <li>
+              <a [href]="brand.phoneHref">
+                <ak-icon name="phone" size="sm" />
+                <span>{{ brand.phoneDisplay }}</span>
+              </a>
+            </li>
+            <li>
+              <a [href]="brand.whatsappHref" target="_blank" rel="noopener">
+                <ak-icon name="message" size="sm" />
+                <span>WhatsApp Concierge</span>
+              </a>
+            </li>
+            <li>
+              <a [href]="'mailto:' + brand.email">
+                <ak-icon name="mail" size="sm" />
+                <span>{{ brand.email }}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="footer__assure">
+      <ak-trust-badge icon="award" label="Independently Certified" [note]="brand.certificationNote" />
+      <ak-trust-badge icon="lock" label="Secure Payments" note="UPI Â· Cards Â· Net Banking" />
+      <ak-trust-badge icon="truck" label="Insured Delivery" note="Fully insured, to your door" />
+    </div>
+
+    <div class="footer__legal">
+      <p>Â© {{ year }} {{ brand.name }}. All rights reserved.</p>
+
+      <ul class="footer__social">
+        <li>
+          <a [href]="brand.social.instagram" target="_blank" rel="noopener" aria-label="Instagram">
+            <ak-icon name="instagram" size="sm" />
+          </a>
+        </li>
+        <li>
+          <a [href]="brand.social.facebook" target="_blank" rel="noopener" aria-label="Facebook">
+            <ak-icon name="facebook" size="sm" />
+          </a>
+        </li>
+        <li>
+          <a [href]="brand.social.youtube" target="_blank" rel="noopener" aria-label="YouTube">
+            <ak-icon name="youtube" size="sm" />
+          </a>
+        </li>
+      </ul>
+
+      <ul class="footer__policies">
+        <li><a routerLink="/privacy">Privacy</a></li>
+        <li><a routerLink="/terms">Terms</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>

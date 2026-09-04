@@ -1,0 +1,149 @@
+<section class="wizard" aria-labelledby="fyd-title">
+  <div class="container wizard__inner">
+    <header class="wizard__head">
+      <p class="ak-eyebrow">Find Your Diamond</p>
+      <h2 id="fyd-title" class="wizard__title">Four questions. Honest suggestions.</h2>
+      <p class="wizard__lede">
+        No jargon required. Tell us the moment, the shape you love and your budget — we will
+        translate the rest into diamond language.
+      </p>
+    </header>
+
+    <div class="wizard__card">
+      @if (step() < 5) {
+        <div class="wizard__progress" aria-hidden="true">
+          <span class="wizard__progress-fill" [style.width.%]="step() * 25"></span>
+        </div>
+        <p class="wizard__step-label">Step {{ step() }} of 4</p>
+
+        <form (submit)="continue($event)">
+          <fieldset class="wizard__fieldset">
+            <legend class="wizard__legend">
+              @switch (step()) {
+                @case (1) {
+                  What are you buying for?
+                }
+                @case (2) {
+                  Which shape do you love?
+                }
+                @case (3) {
+                  What is your budget?
+                }
+                @case (4) {
+                  What matters most?
+                }
+              }
+            </legend>
+
+            @switch (step()) {
+              @case (1) {
+                <div class="wizard__options wizard__options--wide">
+                  @for (option of occasions; track option.value) {
+                    <label class="wizard__option" [class.is-selected]="occasion() === option.value">
+                      <input
+                        class="u-visually-hidden"
+                        type="radio"
+                        name="occasion"
+                        [value]="option.value"
+                        [checked]="occasion() === option.value"
+                        (change)="occasion.set(option.value)"
+                      />
+                      <span class="wizard__option-label">{{ option.label }}</span>
+                      <span class="wizard__option-note">{{ option.note }}</span>
+                    </label>
+                  }
+                </div>
+              }
+              @case (2) {
+                <div class="wizard__options wizard__options--shapes">
+                  @for (shape of shapes(); track shape.name) {
+                    <label class="wizard__option wizard__option--shape" [class.is-selected]="shapeSelected() === shape.name">
+                      <input
+                        class="u-visually-hidden"
+                        type="radio"
+                        name="shape"
+                        [value]="shape.name"
+                        [checked]="shapeSelected() === shape.name"
+                        (change)="shapeSelected.set(shape.name)"
+                      />
+                      <ak-shape-glyph [shape]="shape.name" [size]="38" class="wizard__shape-glyph" />
+                      <span class="wizard__option-label">{{ shape.label }}</span>
+                    </label>
+                  }
+                </div>
+              }
+              @case (3) {
+                <div class="wizard__options wizard__options--wide">
+                  @for (option of budgets; track option.value) {
+                    <label class="wizard__option" [class.is-selected]="budget() === option.value">
+                      <input
+                        class="u-visually-hidden"
+                        type="radio"
+                        name="budget"
+                        [value]="option.value"
+                        [checked]="budget() === option.value"
+                        (change)="budget.set(option.value)"
+                      />
+                      <span class="wizard__option-label">{{ option.label }}</span>
+                    </label>
+                  }
+                </div>
+              }
+              @case (4) {
+                <div class="wizard__options wizard__options--wide">
+                  @for (option of priorities; track option.value) {
+                    <label class="wizard__option" [class.is-selected]="priority() === option.value">
+                      <input
+                        class="u-visually-hidden"
+                        type="radio"
+                        name="priority"
+                        [value]="option.value"
+                        [checked]="priority() === option.value"
+                        (change)="priority.set(option.value)"
+                      />
+                      <span class="wizard__option-label">{{ option.label }}</span>
+                      <span class="wizard__option-note">{{ option.note }}</span>
+                    </label>
+                  }
+                </div>
+              }
+            }
+          </fieldset>
+
+          <div class="wizard__nav">
+            @if (step() > 1) {
+              <button akButton type="button" variant="ghost" class="wizard__back" (click)="back()">Back</button>
+            }
+            <button akButton type="submit" variant="primary" [disabled]="!canContinue()">Continue</button>
+          </div>
+        </form>
+      } @else {
+        <div class="wizard__result">
+          <p class="ak-eyebrow">{{ summary()?.headline }}</p>
+
+          <div class="wizard__chips">
+            <ak-badge variant="gold">{{ occasionLabel() }}</ak-badge>
+            <ak-badge variant="gold">
+              <ak-shape-glyph [shape]="shapeSelected()!" [size]="14" />
+              {{ shapeLabel() }}
+            </ak-badge>
+            <ak-badge variant="gold">{{ budgetLabel() }}</ak-badge>
+            <ak-badge variant="gold">{{ priorityLabel() }}</ak-badge>
+          </div>
+
+          <p class="wizard__guidance">{{ summary()?.guidance }}</p>
+
+          <div class="wizard__nav">
+            <button akButton type="button" variant="ghost" class="wizard__back" (click)="refine()">
+              Refine Selection
+            </button>
+            <a akButton variant="outline" routerLink="/consultation">Speak With an Expert</a>
+            <a akButton variant="accent" routerLink="/diamonds" [queryParams]="filterParams()">
+              View Matching Diamonds
+            </a>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

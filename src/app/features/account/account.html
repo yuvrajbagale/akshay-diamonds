@@ -1,0 +1,68 @@
+<section class="account">
+  <div class="account__container">
+    <ak-breadcrumb [items]="breadcrumbs" />
+    <h1 class="account__heading">Your Account</h1>
+
+    <div class="account__layout">
+      <nav class="account__nav">
+        <button class="account__tab" [class.is-active]="tab() === 'orders'" (click)="setTab('orders')">Orders</button>
+        <button class="account__tab" [class.is-active]="tab() === 'wishlist'" (click)="setTab('wishlist')">Saved Diamonds</button>
+        <button class="account__tab" [class.is-active]="tab() === 'compare'" (click)="setTab('compare')">Compare</button>
+        <a class="account__link" routerLink="/consultation">Consultations</a>
+      </nav>
+
+      <div class="account__content">
+        @if (tab() === 'orders') {
+          @if (orderList().length === 0) {
+            <ak-empty-state icon="gem" title="Your orders will appear here" description="Once you place an order, you can track its progress and access certificates.">
+              <a akButton variant="primary" routerLink="/diamonds">Explore Diamonds</a>
+            </ak-empty-state>
+          } @else {
+            <div class="orders">
+              @for (order of orderList(); track order.id) {
+                <article class="order">
+                  <div class="order__head">
+                    <div>
+                      <span class="order__id">Order #{{ order.id }}</span>
+                      <span class="order__date">{{ order.createdAt | date:'mediumDate' }}</span>
+                    </div>
+                    <span class="order__status order__status--{{ order.status }}">{{ statusLabel(order.status) }}</span>
+                  </div>
+                  <div class="order__items">
+                    @for (item of order.items; track item.diamondId) {
+                      <span class="order__chip">{{ item.name }} · {{ item.carat }} ct</span>
+                    }
+                  </div>
+                  <div class="order__foot">
+                    <span>Estimated delivery: {{ order.estimatedDelivery | date:'mediumDate' }}</span>
+                    <ak-price [value]="order.total" />
+                  </div>
+                </article>
+              }
+            </div>
+          }
+        }
+
+        @if (tab() === 'wishlist') {
+          @if (wishlistIds().length === 0) {
+            <ak-empty-state icon="heart" title="Your collection begins here" description="Save diamonds you love while you explore.">
+              <a akButton variant="primary" routerLink="/diamonds">Explore Diamonds</a>
+            </ak-empty-state>
+          } @else {
+            <p class="account__count">{{ wishlistIds().length }} diamond{{ wishlistIds().length > 1 ? 's' : '' }} saved</p>
+          }
+        }
+
+        @if (tab() === 'compare') {
+          @if (compareIds().length === 0) {
+            <ak-empty-state icon="compare" title="Select diamonds to compare" description="Compare up to four diamonds side by side.">
+              <a akButton variant="primary" routerLink="/diamonds">Explore Diamonds</a>
+            </ak-empty-state>
+          } @else {
+            <a akButton variant="primary" routerLink="/compare">View Comparison</a>
+          }
+        }
+      </div>
+    </div>
+  </div>
+</section>

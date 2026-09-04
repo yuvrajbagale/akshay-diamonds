@@ -1,0 +1,63 @@
+<div class="gallery">
+  <div class="gallery__stage">
+    @switch (view()) {
+      @case ('top') {
+        <ak-diamond-image [shape]="shapeName()" size="full" class="gallery__image" />
+        <p class="gallery__caption">Top view · {{ diamond().shape }} cut</p>
+      }
+      @case ('side') {
+        <div class="gallery__side-wrap">
+          <ak-diamond-image [shape]="shapeName()" size="full" class="gallery__image gallery__image--side" />
+        </div>
+        <p class="gallery__caption">Side profile · {{ diamond().measurements.width }} mm wide</p>
+      }
+      @case ('viewer360') {
+        <div class="gallery__slot">
+          <ak-icon name="sparkles" size="lg" />
+          <p>The interactive 360° viewer connects here.</p>
+          <span class="gallery__slot-note">Rotation, macro and light study — coming with the imagery pipeline.</span>
+        </div>
+      }
+      @case ('video') {
+        <div class="gallery__slot">
+          <ak-icon name="video" size="lg" />
+          <p>This stone's video will play here.</p>
+        </div>
+      }
+    }
+
+    <button
+      akIconButton
+      size="lg"
+      class="gallery__zoom"
+      icon="search"
+      label="Zoom diamond"
+      (click)="openZoom()"
+    ></button>
+  </div>
+
+  <div class="gallery__views" role="tablist" aria-label="Gallery views">
+    @for (option of views; track option.id) {
+      <button
+        type="button"
+        class="gallery__view"
+        [class.is-active]="view() === option.id"
+        role="tab"
+        [attr.aria-selected]="view() === option.id"
+        (click)="select(option.id)"
+      >
+        <ak-icon [name]="option.icon" size="sm" />
+        {{ option.label }}
+      </button>
+    }
+  </div>
+
+  <ak-modal heading="Diamond — Magnified" [open]="zoomOpen()" (openChange)="zoomOpen.set($event)">
+    <div class="gallery__zoom-body">
+      <ak-diamond-image [shape]="shapeName()" size="xl" class="gallery__zoom-image" />
+      <p class="gallery__zoom-caption">
+        {{ name() }} — magnified presentation. A full macro photography set connects here.
+      </p>
+    </div>
+  </ak-modal>
+</div>

@@ -1,0 +1,272 @@
+// ============================================================================
+// MOTION — subtle luxury. Fades, slides, reveals, and premium effects.
+// Everything honours prefers-reduced-motion.
+// ============================================================================
+
+@keyframes ak-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ak-fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes ak-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes ak-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes ak-slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: none;
+  }
+}
+
+@keyframes ak-slide-in-left {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: none;
+  }
+}
+
+@keyframes ak-slide-out-right {
+  from {
+    transform: none;
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes ak-slide-out-left {
+  from {
+    transform: none;
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes ak-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ak-shimmer {
+  from {
+    background-position: 200% 0;
+  }
+
+  to {
+    background-position: -200% 0;
+  }
+}
+
+// -- Premium keyframes --------------------------------------------------------
+
+@keyframes ak-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes ak-float-slow {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+  66% {
+    transform: translateY(-4px) rotate(-1deg);
+  }
+}
+
+@keyframes ak-gold-shimmer {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+@keyframes ak-glow-pulse {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes ak-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes ak-blur-in {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes ak-rotate-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// -- 3D tilt directive styles -------------------------------------------------
+
+.ak-tilt-3d {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+// -- Magnetic button directive styles -----------------------------------------
+
+.ak-magnetic {
+  will-change: transform;
+  transition: transform 0.15s var(--ease-lux);
+}
+
+// -- Gold text shimmer utility -----------------------------------------------
+
+.ak-text-shimmer {
+  background: linear-gradient(
+    110deg,
+    var(--color-text-primary) 0%,
+    var(--color-accent-strong) 45%,
+    var(--color-text-primary) 55%,
+    var(--color-accent-strong) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: ak-gold-shimmer 4s linear infinite;
+}
+
+// -- Floating element utility ------------------------------------------------
+
+.ak-float {
+  animation: ak-float var(--dur-float) var(--ease-in-out) infinite;
+}
+
+.ak-float-slow {
+  animation: ak-float-slow 8s var(--ease-in-out) infinite;
+}
+
+// -- Scroll reveal primitives (driven by the ScrollReveal directive) ---------
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity var(--dur-reveal) var(--ease-lux),
+    transform var(--dur-reveal) var(--ease-lux);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal--left {
+  transform: translateX(-24px);
+}
+
+.reveal--right {
+  transform: translateX(24px);
+}
+
+.reveal--fade {
+  transform: none;
+}
+
+.reveal.is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+// -- View transitions (router) — restrained cross-fade -----------------------
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation: ak-fade-out 200ms var(--ease-in-out) both;
+  }
+
+  ::view-transition-new(root) {
+    animation: ak-fade-in 300ms var(--ease-in-out) both;
+  }
+}
+
+// -- Reduced motion: show everything instantly, kill decorative motion -------
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

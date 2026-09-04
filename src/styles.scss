@@ -1,0 +1,12 @@
+// ============================================================================
+// AKSHAY DIAMONDS — GLOBAL STYLESHEET ENTRY
+// Order matters: tokens → reset → typography → motion → utilities.
+// Component styles live inside components; nothing else is global.
+// ============================================================================
+
+@use 'styles/abstracts/tokens';
+@use 'styles/base/reset';
+@use 'styles/base/typography';
+@use 'styles/base/animations';
+@use 'styles/base/utilities';
+

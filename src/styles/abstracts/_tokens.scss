@@ -1,0 +1,162 @@
+// ============================================================================
+// AKSHAY DIAMONDS — DESIGN TOKENS
+// Single source of truth for color, type, space, radius, shadow, motion,
+// layout and z-index. Components must never use raw values.
+// ============================================================================
+
+:root {
+  // -- Color · Light (default) ---------------------------------------------
+  // Black & gold luxury — black base, gold text, gold accents.
+  --color-bg: #000000;
+  --color-surface: #0d0d0d;
+  --color-surface-muted: #161616;
+  --color-surface-inverse: #f5f0e8;
+  --color-text-primary: #d4a76a;
+  --color-text-secondary: #b8976a;
+  --color-text-tertiary: #8a7a5a;
+  --color-text-inverse: #0a0a0a;
+  --color-accent: #d4a76a;
+  --color-accent-strong: #e8c882;
+  --color-accent-contrast: #0a0a0a;
+  --color-accent-soft: #1a1508;
+  --color-border: #2a2218;
+  --color-border-strong: #3d3222;
+  --color-success: #5a9a6e;
+  --color-success-soft: #0f1a12;
+  --color-error: #c45a4a;
+  --color-error-soft: #1a0f0d;
+  --color-info: #5a8a9a;
+  --color-overlay: rgb(0 0 0 / 70%);
+  --color-focus: #d4a76a;
+
+  // -- Typography ------------------------------------------------------------
+  --font-serif: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  // Fluid editorial scale
+  --text-display-1: clamp(2.75rem, 1.2rem + 5.4vw, 4.75rem);
+  --text-display-2: clamp(2.25rem, 1.4rem + 3.4vw, 3.5rem);
+  --text-title-1: clamp(1.75rem, 1.3rem + 1.8vw, 2.5rem);
+  --text-title-2: clamp(1.375rem, 1.15rem + 1vw, 1.75rem);
+  --text-title-3: 1.125rem;
+  --text-body-lg: 1.0625rem;
+  --text-body: 0.9375rem;
+  --text-body-sm: 0.875rem;
+  --text-caption: 0.8125rem;
+  --text-overline: 0.75rem;
+
+  --leading-tight: 1.1;
+  --leading-snug: 1.3;
+  --leading-normal: 1.65;
+
+  --tracking-overline: 0.18em;
+  --tracking-nav: 0.1em;
+  --tracking-button: 0.14em;
+  --tracking-wordmark: 0.34em;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+
+  // -- Spacing (4px base) ----------------------------------------------------
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 8rem;
+
+  // -- Section rhythm ---------------------------------------------------------
+  --section-pad-y: clamp(4rem, 3rem + 5vw, 8rem);
+
+  // -- Radius (restrained — sharpness reads luxury) ---------------------------
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --radius-pill: 999px;
+
+  // -- Shadows (warm, soft, low) ----------------------------------------------
+  --shadow-sm: 0 1px 2px rgb(29 26 21 / 5%), 0 2px 8px rgb(29 26 21 / 4%);
+  --shadow-md: 0 2px 6px rgb(29 26 21 / 6%), 0 14px 34px rgb(29 26 21 / 9%);
+  --shadow-lg: 0 4px 12px rgb(29 26 21 / 8%), 0 28px 70px rgb(29 26 21 / 14%);
+
+  // -- Borders -----------------------------------------------------------------
+  --border-hairline: 1px solid var(--color-border);
+  --border-hairline-strong: 1px solid var(--color-border-strong);
+
+  // -- Motion -------------------------------------------------------------------
+  --ease-lux: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+  --dur-slow: 450ms;
+  --dur-reveal: 700ms;
+  --dur-float: 6s;
+
+  // -- 3D / Premium Effects ---------------------------------------------------
+  --perspective: 1000px;
+  --perspective-card: 800px;
+  --gold-shimmer: linear-gradient(
+    110deg,
+    transparent 25%,
+    rgb(212 167 106 / 8%) 37%,
+    rgb(232 200 130 / 14%) 50%,
+    rgb(212 167 106 / 8%) 63%,
+    transparent 75%
+  );
+
+  // -- Layout ---------------------------------------------------------------------
+  --container-max: 84.375rem;
+  --container-pad-x: clamp(1.25rem, 0.6rem + 3vw, 3rem);
+  --header-height: 5.25rem;
+  --header-announce-height: 2.25rem;
+  --bottom-nav-height: 4.25rem;
+
+  // -- Z-index scale ----------------------------------------------------------------
+  --z-behind: -1;
+  --z-base: 0;
+  --z-raised: 10;
+  --z-header: 100;
+  --z-bottom-nav: 110;
+  --z-overlay: 200;
+  --z-drawer: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+}
+
+// ============================================================================
+// Dark luxury theme — applied to dark sections via `.theme-dark`, and
+// globally later via `[data-theme='dark']` on <html> (user preference).
+// Every component automatically adapts because it reads only tokens.
+// ============================================================================
+.theme-dark,
+[data-theme='dark'] {
+  --color-bg: #050505;
+  --color-surface: #0d0d0d;
+  --color-surface-muted: #141414;
+  --color-surface-inverse: #f5f0e8;
+  --color-text-primary: #e8c882;
+  --color-text-secondary: #c4a870;
+  --color-text-tertiary: #9a8a64;
+  --color-text-inverse: #0a0a0a;
+  --color-accent: #e8c882;
+  --color-accent-strong: #f0d898;
+  --color-accent-contrast: #0a0a0a;
+  --color-accent-soft: #1a1508;
+  --color-border: #22201a;
+  --color-border-strong: #3a3228;
+  --color-success-soft: #0f1a12;
+  --color-error-soft: #1a0f0d;
+  --color-overlay: rgb(0 0 0 / 80%);
+  --color-focus: #f0d898;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 40%), 0 2px 8px rgb(0 0 0 / 35%);
+  --shadow-md: 0 2px 6px rgb(0 0 0 / 45%), 0 14px 34px rgb(0 0 0 / 50%);
+  --shadow-lg: 0 4px 12px rgb(0 0 0 / 50%), 0 28px 70px rgb(0 0 0 / 60%);
+}

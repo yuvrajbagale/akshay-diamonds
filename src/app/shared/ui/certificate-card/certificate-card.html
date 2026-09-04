@@ -1,0 +1,42 @@
+<section class="cert" aria-labelledby="cert-title">
+  <div class="cert__head">
+    <span class="cert__mark" aria-hidden="true">
+      <ak-icon name="award" size="lg" />
+    </span>
+    <div>
+      <h3 id="cert-title" class="cert__title">This Diamond's Certificate</h3>
+      <p class="cert__note">Independently graded — the number is listed here in full.</p>
+    </div>
+  </div>
+
+  <dl class="cert__facts">
+    <div>
+      <dt>Laboratory</dt>
+      <dd>{{ diamond().certificate.laboratory }}</dd>
+    </div>
+    <div>
+      <dt>Certificate Number</dt>
+      <dd class="cert__mono">{{ diamond().certificate.number }}</dd>
+    </div>
+  </dl>
+
+  @switch (status()) {
+    @case ('idle') {
+      <button akButton variant="outline" block (click)="verify()">
+        Verify This Diamond
+      </button>
+    }
+    @case ('verifying') {
+      <p class="cert__verifying" role="status">
+        <ak-spinner size="sm" label="Verifying certificate" />
+        Checking with {{ diamond().certificate.laboratory }}…
+      </p>
+    }
+    @default {
+      <div class="cert__result" role="status" aria-live="polite">
+        <p>{{ message() }}</p>
+        <a akButton variant="outline" routerLink="/consultation">Speak With a Diamond Expert</a>
+      </div>
+    }
+  }
+</section>

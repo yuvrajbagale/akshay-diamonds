@@ -1,0 +1,215 @@
+.detail {
+  padding-block: var(--space-lg) var(--space-2xl);
+}
+
+.detail__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+  margin-top: var(--space-md);
+}
+
+.detail__media {
+  min-width: 0;
+}
+
+.detail__info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.detail__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+}
+
+.detail__name {
+  margin-top: var(--space-sm);
+  font-size: var(--text-display-2);
+}
+
+.detail__sku {
+  margin-top: var(--space-3xs);
+  font-size: var(--text-caption);
+  letter-spacing: 0.06em;
+  color: var(--color-text-tertiary);
+}
+
+.detail__grades {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+}
+
+.detail__grade {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: var(--space-xs) var(--space-sm);
+  border: var(--border-hairline);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  font-size: var(--text-caption);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  strong {
+    font-size: var(--text-title-2);
+    font-family: var(--font-serif);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text-primary);
+    line-height: 1;
+  }
+}
+
+.detail__shape {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  border: var(--border-hairline);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  font-size: var(--text-caption);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  strong {
+    font-family: var(--font-serif);
+    font-weight: var(--weight-semibold);
+    font-size: var(--text-body);
+    color: var(--color-text-primary);
+    text-transform: none;
+    letter-spacing: 0;
+  }
+}
+
+.detail__price {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+.detail__per-carat {
+  font-size: var(--text-caption);
+  color: var(--color-text-tertiary);
+}
+
+.detail__trust {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: var(--space-md);
+  gap: var(--space-sm);
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: var(--text-body-sm);
+    color: var(--color-text-secondary);
+  }
+
+  ak-icon {
+    color: var(--color-accent-strong);
+  }
+}
+
+.detail__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-top: var(--space-lg);
+}
+
+.detail__secondary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  margin-top: var(--space-sm);
+
+  .detail__secondary-label {
+    font-size: var(--text-caption);
+    color: var(--color-text-tertiary);
+    margin-right: var(--space-sm);
+  }
+
+  .is-wishlisted,
+  .is-compared {
+    color: var(--color-accent-strong);
+  }
+}
+
+.detail__expert {
+  margin-top: var(--space-md);
+}
+
+.detail__sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+  margin-top: var(--space-3xl);
+}
+
+.detail__section {
+  border-top: var(--border-hairline);
+  padding-top: var(--space-xl);
+}
+
+.detail__section-title {
+  margin-top: var(--space-2xs);
+  font-size: var(--text-title-1);
+}
+
+.detail__why {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+  margin: var(--space-lg) 0 0;
+}
+
+.detail__why-row {
+  display: grid;
+  gap: 0.15rem;
+
+  dt {
+    font-size: var(--text-overline);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-overline);
+    text-transform: uppercase;
+    color: var(--color-accent-strong);
+  }
+
+  dd {
+    margin: 0;
+    font-size: var(--text-body);
+    line-height: var(--leading-normal);
+    color: var(--color-text-secondary);
+  }
+}
+
+@media (min-width: 1024px) {
+  .detail__grid {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .detail__why {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .detail__actions {
+    flex-direction: row;
+  }
+
+  .detail__actions button {
+    flex: 1;
+  }
+}

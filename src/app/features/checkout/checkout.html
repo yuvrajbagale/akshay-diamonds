@@ -1,0 +1,161 @@
+<section class="checkout">
+  <div class="checkout__container">
+    <ak-breadcrumb [items]="breadcrumbs" />
+
+    <div class="checkout__grid">
+      <div class="checkout__main">
+        <h1 class="checkout__heading">Checkout</h1>
+        <ol class="steps">
+          <li class="steps__item" [class.is-active]="step() === 'contact'" [class.is-done]="step() !== 'contact'">
+            <span class="steps__num">1</span><span class="steps__label">Contact</span>
+          </li>
+          <li class="steps__item" [class.is-active]="step() === 'shipping'" [class.is-done]="step() === 'payment' || step() === 'review'">
+            <span class="steps__num">2</span><span class="steps__label">Shipping</span>
+          </li>
+          <li class="steps__item" [class.is-active]="step() === 'payment'" [class.is-done]="step() === 'review'">
+            <span class="steps__num">3</span><span class="steps__label">Payment</span>
+          </li>
+          <li class="steps__item" [class.is-active]="step() === 'review'">
+            <span class="steps__num">4</span><span class="steps__label">Review</span>
+          </li>
+        </ol>
+
+          @if (step() === 'contact') {
+            <form class="form" [formGroup]="contact" (ngSubmit)="nextFromContact()">
+              <h2 class="form__title">Where should we send your confirmation?</h2>
+              <label class="field">
+                <span class="field__label">Email</span>
+                <input class="field__input" type="email" formControlName="email" placeholder="you@example.com" autocomplete="email">
+              </label>
+              <label class="field">
+                <span class="field__label">Phone (WhatsApp)</span>
+                <input class="field__input" type="tel" formControlName="phone" placeholder="98xxxxxxxx" autocomplete="tel">
+              </label>
+              <div class="form__actions">
+                <button akButton variant="primary" type="submit" [disabled]="!canContact()">Continue to Shipping</button>
+              </div>
+            </form>
+          }
+
+          @if (step() === 'payment') {
+            <div class="form">
+              <h2 class="form__title">How would you like to pay?</h2>
+              <div class="payopts">
+                @for (opt of payOptions; track opt.id) {
+                  <button class="payopt" [class.is-selected]="paymentMethod() === opt.id" (click)="paymentMethod.set(opt.id)" type="button">
+                    <span class="payopt__radio" aria-hidden="true"></span>
+                    <span class="payopt__label">{{ opt.label }}</span>
+                  </button>
+                }
+              </div>
+              <p class="form__note">Payment is processed securely. We never store your card details.</p>
+              <div class="form__actions">
+                <button akButton variant="ghost" type="button" (click)="back()">Back</button>
+                <button akButton variant="primary" type="button" (click)="nextFromPayment()">Review Order</button>
+              </div>
+            </div>
+          }
+
+          @if (step() === 'review') {
+            <div class="form">
+              <h2 class="form__title">Review your order</h2>
+              <div class="review">
+                <div class="review__block">
+                  <h3 class="review__label">Contact</h3>
+                  <p>{{ contact.value.email }}</p>
+                  <p>{{ contact.value.phone }}</p>
+                </div>
+                <div class="review__block">
+                  <h3 class="review__label">Shipping to</h3>
+                  <p>{{ shipping.value.fullName }}</p>
+                  <p>{{ shipping.value.line1 }}</p>
+                  @if (shipping.value.line2) { <p>{{ shipping.value.line2 }}</p> }
+                  <p>{{ shipping.value.city }}, {{ shipping.value.state }} {{ shipping.value.pincode }}</p>
+                </div>
+                <div class="review__block">
+                  <h3 class="review__label">Payment</h3>
+                  <p>{{ paymentMethod() | titlecase }}</p>
+                </div>
+              </div>
+              <div class="form__actions">
+                <button akButton variant="ghost" type="button" (click)="back()">Back</button>
+                <button akButton variant="primary" type="button" (click)="place()">Place Order — <ak-price [value]="total()" /></button>
+              </div>
+            </div>
+          }
+          @if (step() === 'shipping') {
+            <form class="form" [formGroup]="shipping" (ngSubmit)="nextFromShipping()">
+              <h2 class="form__title">Where should we deliver?</h2>
+              <label class="field">
+                <span class="field__label">Full Name</span>
+                <input class="field__input" type="text" formControlName="fullName" autocomplete="name">
+              </label>
+              <label class="field">
+                <span class="field__label">Address Line 1</span>
+                <input class="field__input" type="text" formControlName="line1" autocomplete="address-line1">
+              </label>
+              <label class="field">
+                <span class="field__label">Address Line 2 <span class="field__optional">(optional)</span></span>
+                <input class="field__input" type="text" formControlName="line2" autocomplete="address-line2">
+              </label>
+              <div class="form__row">
+                <label class="field">
+                  <span class="field__label">City</span>
+                  <input class="field__input" type="text" formControlName="city" autocomplete="address-level2">
+                </label>
+                <label class="field">
+                  <span class="field__label">State</span>
+                  <input class="field__input" type="text" formControlName="state" autocomplete="address-level1">
+                </label>
+              </div>
+              <label class="field">
+                <span class="field__label">PIN Code</span>
+                <input class="field__input" type="text" formControlName="pincode" inputmode="numeric" autocomplete="postal-code">
+              </label>
+              <div class="form__actions">
+                <button akButton variant="ghost" type="button" (click)="back()">Back</button>
+                <button akButton variant="primary" type="submit" [disabled]="!canShip()">Continue to Payment</button>
+              </div>
+            </form>
+          }
+        </div>
+
+        <aside class="summary">
+          <h2 class="summary__title">Order Summary</h2>
+          <ul class="summary__list">
+            @for (item of items(); track item.diamondId) {
+              @if (diamondFor(item.diamondId); as d) {
+                <li class="summary__item">
+                  <ak-shape-glyph [shape]="shapeOf(d)" [size]="36" />
+                  <div class="summary__info">
+                    <span class="summary__name">{{ d.name }}</span>
+                    <span class="summary__meta">{{ d.carat }} ct · {{ d.color }} · {{ d.clarity }}</span>
+                  </div>
+                  <ak-price [value]="d.pricing.amount" />
+                </li>
+              }
+            }
+          </ul>
+          <dl class="summary__totals">
+            <div class="summary__line">
+              <dt>Subtotal</dt>
+              <dd><ak-price [value]="subtotal()" /></dd>
+            </div>
+            <div class="summary__line">
+              <dt>Shipping</dt>
+              <dd>Complimentary</dd>
+            </div>
+            <div class="summary__line summary__line--total">
+              <dt>Total</dt>
+              <dd><ak-price [value]="total()" /></dd>
+            </div>
+          </dl>
+          <div class="summary__trust">
+            <span>Insured delivery</span>
+            <span>Secure payment</span>
+            <span>Easy returns</span>
+          </div>
+        </aside>
+      </div>
+  </div>
+</section>

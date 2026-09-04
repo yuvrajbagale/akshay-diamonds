@@ -1,0 +1,30 @@
+<section class="edu">
+  <div class="edu__container">
+    <ak-breadcrumb [items]="breadcrumbs" />
+    <ak-section-heading title="Natural vs Lab-Grown" subtitle="Both are real diamonds. They share the same chemical, physical and optical properties. The difference is their origin." />
+
+    <div class="compare-table">
+      <div class="compare-table__head">
+        <span class="compare-table__aspect">Aspect</span>
+        <span class="compare-table__col">Natural</span>
+        <span class="compare-table__col">Lab-Grown</span>
+      </div>
+      @for (row of rows; track row.aspect) {
+        <div class="compare-table__row">
+          <span class="compare-table__aspect">{{ row.aspect }}</span>
+          <span class="compare-table__val">{{ row.natural }}</span>
+          <span class="compare-table__val">{{ row.lab }}</span>
+        </div>
+      }
+    </div>
+
+    <div class="edu__note">
+      <p>We sell both natural and lab-grown diamonds. Every stone is certified and its origin is clearly disclosed. Neither is "better" — the right choice depends on your values, budget and intentions.</p>
+    </div>
+
+    <div class="edu__cta">
+      <a akButton variant="primary" routerLink="/diamonds">Explore All Diamonds</a>
+      <a akButton variant="ghost" routerLink="/consultation">Speak With an Expert</a>
+    </div>
+  </div>
+</section>

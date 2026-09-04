@@ -1,0 +1,219 @@
+<form class="filters" (submit)="$event.preventDefault()">
+  <div class="filters__top">
+    <p class="filters__title">Refine</p>
+    @if (activeCount() > 0) {
+      <button type="button" class="filters__clear" (click)="clearAll()">
+        Clear all ({{ activeCount() }})
+      </button>
+    }
+  </div>
+
+  <!-- Diamond Type -->
+  <fieldset class="fgroup">
+    <legend class="fgroup__legend">Diamond Type</legend>
+    <div class="fgroup__segmented">
+      <label class="fgroup__segment" [class.is-active]="!filters().type">
+        <input
+          class="u-visually-hidden"
+          type="radio"
+          name="f-type"
+          [checked]="!filters().type"
+          (change)="patch({ type: undefined })"
+        />
+        All
+        <span class="fgroup__count">{{ facets().typeCounts.natural + facets().typeCounts['lab-grown'] }}</span>
+      </label>
+      <label class="fgroup__segment" [class.is-active]="filters().type === 'natural'">
+        <input
+          class="u-visually-hidden"
+          type="radio"
+          name="f-type"
+          [checked]="filters().type === 'natural'"
+          (change)="setType('natural')"
+        />
+        Natural
+        <span class="fgroup__count">{{ facets().typeCounts.natural }}</span>
+      </label>
+      <label class="fgroup__segment" [class.is-active]="filters().type === 'lab-grown'">
+        <input
+          class="u-visually-hidden"
+          type="radio"
+          name="f-type"
+          [checked]="filters().type === 'lab-grown'"
+          (change)="setType('lab-grown')"
+        />
+        Lab-Grown
+        <span class="fgroup__count">{{ facets().typeCounts['lab-grown'] }}</span>
+      </label>
+    </div>
+  </fieldset>
+
+  <!-- Shape -->
+  <details class="fgroup" open>
+    <summary class="fgroup__summary">Shape</summary>
+    <div class="fgroup__checks fgroup__checks--shapes">
+      @for (shape of shapeNames(); track shape) {
+        <label class="fcheck fcheck--shape" [class.is-checked]="isChecked('shapes', shape)">
+          <input
+            class="u-visually-hidden"
+            type="checkbox"
+            [checked]="isChecked('shapes', shape)"
+            (change)="toggle('shapes', shape, $any($event.target).checked)"
+          />
+          <ak-shape-glyph [shape]="shapeGlyph(shape)" [size]="18" />
+          <span>{{ shape }}</span>
+          <span class="fgroup__count">{{ shapeCount(shape) }}</span>
+        </label>
+      }
+    </div>
+  </details>
+
+  <!-- Carat -->
+  <details class="fgroup">
+    <summary class="fgroup__summary">Carat Weight</summary>
+    <div class="fgroup__range">
+      <ak-range-slider
+        [min]="facets().caratMin"
+        [max]="facets().caratMax"
+        [step]="0.05"
+        [low]="filters().minCarat ?? facets().caratMin"
+        [high]="filters().maxCarat ?? facets().caratMax"
+        lowLabel="Minimum carat"
+        highLabel="Maximum carat"
+        (lowChange)="onCarat($event, filters().maxCarat ?? facets().caratMax)"
+        (highChange)="onCarat(filters().minCarat ?? facets().caratMin, $event)"
+      />
+      <p class="fgroup__range-label">
+        {{ filters().minCarat ?? facets().caratMin }} – {{ filters().maxCarat ?? facets().caratMax }} ct
+      </p>
+    </div>
+  </details>
+
+  <!-- Price -->
+  <details class="fgroup">
+    <summary class="fgroup__summary">Price</summary>
+    <div class="fgroup__range">
+      <ak-range-slider
+        [min]="facets().priceMin"
+        [max]="facets().priceMax"
+        [step]="5000"
+        [low]="filters().minPrice ?? facets().priceMin"
+        [high]="filters().maxPrice ?? facets().priceMax"
+        lowLabel="Minimum price"
+        highLabel="Maximum price"
+        (lowChange)="onPrice($event, filters().maxPrice ?? facets().priceMax)"
+        (highChange)="onPrice(filters().minPrice ?? facets().priceMin, $event)"
+      />
+      <p class="fgroup__range-label">
+        {{ filters().minPrice ?? facets().priceMin | inr }} – {{ filters().maxPrice ?? facets().priceMax | inr }}
+      </p>
+    </div>
+  </details>
+
+  <!-- Colour -->
+  <details class="fgroup">
+    <summary class="fgroup__summary">Colour</summary>
+    <div class="fgroup__checks fgroup__checks--dense">
+      @for (color of colorKeys(); track color) {
+        <label class="fcheck" [class.is-checked]="isChecked('colors', color)">
+          <input
+            class="u-visually-hidden"
+            type="checkbox"
+            [checked]="isChecked('colors', color)"
+            (change)="toggle('colors', color, $any($event.target).checked)"
+          />
+          <span class="fcheck__swatch">{{ color }}</span>
+          <span class="fgroup__count">{{ facets().colorCounts[color] }}</span>
+        </label>
+      }
+    </div>
+  </details>
+
+  <!-- Clarity -->
+  <details class="fgroup">
+    <summary class="fgroup__summary">Clarity</summary>
+    <div class="fgroup__checks fgroup__checks--dense">
+      @for (clarity of clarityKeys(); track clarity) {
+        <label class="fcheck" [class.is-checked]="isChecked('clarities', clarity)">
+          <input
+            class="u-visually-hidden"
+            type="checkbox"
+            [checked]="isChecked('clarities', clarity)"
+            (change)="toggle('clarities', clarity, $any($event.target).checked)"
+          />
+          <span>{{ clarity }}</span>
+          <span class="fgroup__count">{{ facets().clarityCounts[clarity] }}</span>
+        </label>
+      }
+    </div>
+  </details>
+
+  <!-- Cut -->
+  <details class="fgroup">
+    <summary class="fgroup__summary">Cut</summary>
+    <div class="fgroup__checks">
+      @for (cut of cutKeys(); track cut) {
+        <label class="fcheck" [class.is-checked]="isChecked('cuts', cut)">
+          <input
+            class="u-visually-hidden"
+            type="checkbox"
+            [checked]="isChecked('cuts', cut)"
+            (change)="toggle('cuts', cut, $any($event.target).checked)"
+          />
+          <span>{{ cut }}</span>
+          <span class="fgroup__count">{{ facets().cutCounts[cut] }}</span>
+        </label>
+      }
+    </div>
+  </details>
+
+  <!-- Certification -->
+  <details class="fgroup">
+    <summary class="fgroup__summary">Certification</summary>
+    <div class="fgroup__checks">
+      @for (lab of labKeys(); track lab) {
+        <label class="fcheck" [class.is-checked]="isChecked('laboratories', lab)">
+          <input
+            class="u-visually-hidden"
+            type="checkbox"
+            [checked]="isChecked('laboratories', lab)"
+            (change)="toggle('laboratories', lab, $any($event.target).checked)"
+          />
+          <span>{{ lab }} Certified</span>
+          <span class="fgroup__count">{{ facets().labCounts[lab] }}</span>
+        </label>
+      }
+    </div>
+  </details>
+
+  <!-- Fluorescence -->
+  <details class="fgroup">
+    <summary class="fgroup__summary">Fluorescence</summary>
+    <div class="fgroup__checks">
+      @for (fluorescence of fluorescenceKeys(); track fluorescence) {
+        <label class="fcheck" [class.is-checked]="isChecked('fluorescence', fluorescence)">
+          <input
+            class="u-visually-hidden"
+            type="checkbox"
+            [checked]="isChecked('fluorescence', fluorescence)"
+            (change)="toggle('fluorescence', fluorescence, $any($event.target).checked)"
+          />
+          <span>{{ fluorescence }}</span>
+          <span class="fgroup__count">{{ facets().fluorescenceCounts[fluorescence] }}</span>
+        </label>
+      }
+    </div>
+  </details>
+
+  <!-- Availability -->
+  <label class="fcheck fgroup__availability" [class.is-checked]="filters().availableOnly === true">
+    <input
+      class="u-visually-hidden"
+      type="checkbox"
+      [checked]="filters().availableOnly === true"
+      (change)="toggleAvailable($any($event.target).checked)"
+    />
+    <ak-icon name="truck" size="sm" />
+    <span>In stock only</span>
+  </label>
+</form>

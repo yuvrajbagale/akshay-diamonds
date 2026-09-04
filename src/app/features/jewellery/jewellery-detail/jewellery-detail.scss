@@ -1,0 +1,68 @@
+.jdetail {
+  padding: var(--space-2xl) 0 var(--space-3xl);
+  background: var(--color-background);
+
+  &__container { width: min(100% - 2rem, var(--container-lg)); margin-inline: auto; }
+
+  &__grid {
+    display: grid; grid-template-columns: 1fr; gap: var(--space-2xl);
+    margin-top: var(--space-xl);
+    @media (min-width: 768px) { grid-template-columns: 1fr 1fr; }
+  }
+
+  &__gallery {
+    position: sticky; top: 100px; align-self: start;
+  }
+
+  &__image {
+    display: flex; align-items: center; justify-content: center;
+    aspect-ratio: 1; overflow: hidden;
+    border: 1px solid var(--color-border); border-radius: var(--radius-md);
+  }
+
+  &__category {
+    display: inline-block; font-size: var(--step--2); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--color-accent); margin-bottom: var(--space-sm);
+  }
+
+  &__name {
+    font-family: var(--font-serif); font-size: var(--step-3);
+    font-weight: 500; line-height: 1.2; margin-bottom: var(--space-md);
+  }
+
+  &__desc {
+    font-size: var(--step-0); color: var(--color-text-secondary);
+    line-height: 1.6; margin-bottom: var(--space-lg);
+  }
+
+  &__price { margin-bottom: var(--space-lg); }
+
+  &__specs {
+    padding: var(--space-lg); background: var(--color-surface);
+    border: 1px solid var(--color-border); border-radius: var(--radius-md);
+    margin-bottom: var(--space-lg);
+  }
+
+  &__list {
+    display: grid; grid-template-columns: auto 1fr; gap: var(--space-sm) var(--space-lg);
+    dt { font-size: var(--step--1); color: var(--color-text-secondary); }
+    dd { font-size: var(--step--1); font-weight: 500; text-align: right; }
+  }
+
+  &__actions {
+    display: flex; gap: var(--space-sm); margin-bottom: var(--space-lg);
+    flex-wrap: wrap;
+  }
+
+  &__trust {
+    display: flex; flex-direction: column; gap: var(--space-sm);
+    padding: var(--space-md); background: var(--color-surface);
+    border: 1px solid var(--color-border); border-radius: var(--radius-md);
+  }
+
+  &__trust-item {
+    display: flex; align-items: center; gap: var(--space-xs);
+    font-size: var(--step--1); color: var(--color-text-secondary);
+  }
+}

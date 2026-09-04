@@ -1,0 +1,36 @@
+<div class="mega">
+  <div class="container mega__inner">
+    @for (column of item().panel?.columns ?? []; track $index) {
+      <div class="mega__column">
+        <p class="mega__column-title">{{ column.title }}</p>
+        <ul class="mega__links">
+          @for (link of column.links; track $index) {
+            <li>
+              <a class="mega__link" [routerLink]="link.route" (click)="navigated.emit()">
+                <span class="mega__link-label">{{ link.label }}</span>
+                @if (link.description) {
+                  <span class="mega__link-description">{{ link.description }}</span>
+                }
+              </a>
+            </li>
+          }
+        </ul>
+      </div>
+    }
+
+    @if (item().panel?.feature; as feature) {
+      <a class="mega__feature" [routerLink]="feature.route" (click)="navigated.emit()">
+        <span class="mega__feature-icon" aria-hidden="true">
+          <ak-icon [name]="feature.icon" size="lg" />
+        </span>
+        <span class="ak-eyebrow">{{ feature.eyebrow }}</span>
+        <span class="mega__feature-title">{{ feature.title }}</span>
+        <span class="mega__feature-description">{{ feature.description }}</span>
+        <span class="mega__feature-cta">
+          Discover
+          <ak-icon name="arrow-right" size="sm" />
+        </span>
+      </a>
+    }
+  </div>
+</div>

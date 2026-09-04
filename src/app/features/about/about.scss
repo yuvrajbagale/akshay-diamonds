@@ -1,0 +1,26 @@
+.about {
+  padding: var(--space-2xl) 0 var(--space-3xl);
+  background: var(--color-background);
+
+  &__container { width: min(100% - 2rem, var(--container-sm)); margin-inline: auto; }
+
+  &__content {
+    margin-top: var(--space-xl);
+
+    p { font-size: var(--step-0); line-height: 1.7; color: var(--color-text-secondary); margin-bottom: var(--space-md); }
+  }
+
+  &__values {
+    display: grid; grid-template-columns: 1fr; gap: var(--space-lg); margin-top: var(--space-2xl);
+
+    @media (min-width: 768px) { grid-template-columns: 1fr 1fr 1fr; }
+  }
+
+  &__value {
+    padding: var(--space-lg);
+    background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md);
+
+    h3 { font-family: var(--font-serif); font-size: var(--step-1); font-weight: 500; margin-bottom: var(--space-xs); }
+    p { font-size: var(--step--1); color: var(--color-text-secondary); }
+  }
+}

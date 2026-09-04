@@ -1,0 +1,199 @@
+<!-- Section 1 — Hero -->
+<section class="hero theme-dark" akReveal="fade">
+  <div class="hero__glow" aria-hidden="true"></div>
+  <div class="hero__particles" aria-hidden="true">
+    <span class="hero__particle hero__particle--1"></span>
+    <span class="hero__particle hero__particle--2"></span>
+    <span class="hero__particle hero__particle--3"></span>
+    <span class="hero__particle hero__particle--4"></span>
+    <span class="hero__particle hero__particle--5"></span>
+  </div>
+  <div class="container hero__inner">
+    <p class="ak-eyebrow">Akshay Diamonds</p>
+    <h1 class="hero__title ak-text-shimmer">
+      A diamond<br />
+      worth remembering.
+    </h1>
+    <p class="hero__lede">
+      Exceptional natural and lab-grown diamonds — thoughtfully selected, honestly priced and
+      transparently presented, certificate first.
+    </p>
+    <div class="hero__actions">
+      <a akButton variant="accent" size="lg" routerLink="/diamonds" akMagneticButton>Explore Diamonds</a>
+      <a akButton variant="outline" size="lg" routerLink="/build-your-ring" akMagneticButton>Build Your Ring</a>
+    </div>
+  </div>
+  <p class="hero__foot" aria-hidden="true">
+    <span>Certified</span>
+    <span class="hero__foot-dot">·</span>
+    <span>Transparent</span>
+    <span class="hero__foot-dot">·</span>
+    <span>Indian at heart</span>
+  </p>
+</section>
+
+<!-- Section 2 — Trust strip -->
+<section class="trust" aria-label="Our promises">
+  <ul class="container trust__list">
+    @for (item of trust; track item.label) {
+      <li class="trust__item">
+        <ak-trust-badge [icon]="item.icon" [label]="item.label" [note]="item.note" />
+      </li>
+    }
+  </ul>
+</section>
+
+<!-- Section 3 — Shop by diamond shape -->
+<section class="shapes">
+  <div class="container">
+    <ak-section-heading
+      align="center"
+      eyebrow="Shop by Diamond"
+      title="Begin with the shape"
+      description="Every cut bends light differently — find the silhouette that feels like you."
+    />
+
+    <ul class="shapes__grid">
+      @for (shape of content().shapes; track shape.name; let i = $index) {
+        <li>
+          <a
+            class="shapes__card"
+            [routerLink]="shape.route"
+            [queryParams]="shape.params ?? null"
+            akReveal
+            [revealDelay]="(i % 3) * 70"
+            akTilt3D
+          >
+            <ak-shape-glyph [shape]="shape.name" [size]="44" class="shapes__glyph" />
+            <span class="shapes__label">{{ shape.label }}</span>
+            <span class="shapes__description">{{ shape.description }}</span>
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<!-- Section 4 — Featured collections -->
+<section class="collections">
+  <div class="container">
+    <ak-section-heading
+      align="center"
+      eyebrow="Featured Collections"
+      title="Stories, set in diamond"
+      description="Three worlds of design — each with its own reason to exist."
+    />
+
+    <div class="collections__grid">
+      @for (collection of content().collections; track collection.name) {
+        <article
+          class="collection-card"
+          [class.theme-dark]="collection.tone === 'dark'"
+          akReveal
+        >
+          <div class="collection-card__image">
+            <ak-hero-image [variant]="collection.tone === 'dark' ? 'hero' : 'collection'" />
+          </div>
+          <span class="collection-card__ornament" aria-hidden="true">
+            <ak-icon [name]="collection.ornament" size="lg" />
+          </span>
+          <p class="ak-eyebrow">Collection</p>
+          <h3 class="collection-card__name">{{ collection.name }}</h3>
+          <p class="collection-card__story">{{ collection.story }}</p>
+          <a class="collection-card__cta" [routerLink]="collection.route" akMagneticButton>
+            {{ collection.cta }}
+            <ak-icon name="arrow-right" size="sm" />
+          </a>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Section 5 — Guided discovery -->
+<ak-find-your-diamond />
+
+<!-- Section 6 — Indian occasions -->
+<section class="occasions">
+  <div class="container">
+    <ak-section-heading
+      align="center"
+      eyebrow="Indian Moments"
+      title="Every occasion, honoured"
+    />
+
+    <ul class="occasions__list">
+      @for (occasion of content().occasions; track occasion.name) {
+        <li>
+          <a class="occasions__item" [routerLink]="occasion.route">
+            <span class="occasions__name">{{ occasion.name }}</span>
+            <span class="occasions__story">{{ occasion.story }}</span>
+            <ak-icon name="arrow-right" size="sm" class="occasions__arrow" />
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<!-- Section 7 — Education paths -->
+<section class="learn">
+  <div class="container">
+    <ak-section-heading
+      eyebrow="Understand before you choose"
+      title="Confidence is knowing"
+      description="Diamond education without the jargon — the same honest language our experts use."
+    />
+
+    <div class="learn__grid">
+      @for (path of learn; track path.route; let i = $index) {
+        <a class="learn__card" [routerLink]="path.route" akReveal [revealDelay]="i * 90" akTilt3D>
+          <span class="learn__icon" aria-hidden="true">
+            <ak-icon [name]="path.icon" size="lg" />
+          </span>
+          <span class="ak-eyebrow">{{ path.eyebrow }}</span>
+          <span class="learn__title">{{ path.title }}</span>
+          <span class="learn__description">{{ path.description }}</span>
+          <span class="learn__cta">
+            {{ path.cta }}
+            <ak-icon name="arrow-right" size="sm" />
+          </span>
+        </a>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Section 8 — Consultation conversion band -->
+<section class="consult theme-dark">
+  <div class="container consult__inner">
+    <p class="ak-eyebrow">Personal Guidance</p>
+    <h2 class="consult__title">Speak With a Diamond Expert.</h2>
+    <p class="consult__copy">
+      For a decision this significant, a conversation helps — honest answers on the 4Cs,
+      certification and natural versus lab-grown, in whichever way suits you.
+    </p>
+    <div class="consult__actions">
+      <a akButton variant="accent" size="lg" routerLink="/consultation" (click)="onBookConsultation()" akMagneticButton>
+        Book a Consultation
+      </a>
+      <a
+        akButton
+        variant="outline"
+        size="lg"
+        [href]="brand.whatsappHref"
+        target="_blank"
+        rel="noopener"
+        (click)="onWhatsApp()"
+        akMagneticButton
+      >
+        WhatsApp Concierge
+      </a>
+    </div>
+    <p class="consult__contact">
+      <a [href]="brand.phoneHref" (click)="onPhone()">{{ brand.phoneDisplay }}</a>
+      <span class="consult__contact-dot" aria-hidden="true">·</span>
+      <span>{{ brand.hours }}</span>
+    </p>
+  </div>
+</section>

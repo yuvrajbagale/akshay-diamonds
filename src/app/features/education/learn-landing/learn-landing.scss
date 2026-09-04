@@ -1,0 +1,26 @@
+.learn {
+  padding: var(--space-2xl) 0 var(--space-3xl);
+  background: var(--color-background);
+
+  &__container { width: min(100% - 2rem, var(--container-md)); margin-inline: auto; }
+
+  &__grid {
+    display: grid; grid-template-columns: 1fr; gap: var(--space-md); margin-top: var(--space-xl);
+
+    @media (min-width: 640px) { grid-template-columns: 1fr 1fr; }
+  }
+}
+
+.learn-card {
+  display: flex; flex-direction: column; gap: var(--space-xs);
+  padding: var(--space-lg);
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  border-radius: var(--radius-md); text-decoration: none; color: var(--color-text-primary);
+  transition: border-color var(--ease-soft), box-shadow var(--ease-soft);
+
+  &:hover { border-color: var(--color-accent); box-shadow: var(--shadow-soft); }
+
+  &__title { font-family: var(--font-serif); font-size: var(--step-1); font-weight: 500; }
+  &__desc { font-size: var(--step--1); color: var(--color-text-secondary); flex: 1; }
+  &__cta { font-size: var(--step--1); font-weight: 500; color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.04em; }
+}

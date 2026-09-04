@@ -1,0 +1,83 @@
+// ============================================================================
+// TYPOGRAPHY — Cormorant Garamond (editorial serif) + Inter (UI sans).
+// Element defaults plus a small set of reusable type utilities.
+// ============================================================================
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-tight);
+  letter-spacing: 0.005em;
+  color: var(--color-text-primary);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--text-title-1);
+}
+
+h2 {
+  font-size: var(--text-title-2);
+}
+
+h3 {
+  font-size: var(--text-title-3);
+}
+
+// -- Display / editorial headings ------------------------------------------
+.t-display-1 {
+  font-family: var(--font-serif);
+  font-size: var(--text-display-1);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-tight);
+  letter-spacing: 0.005em;
+}
+
+.t-display-2 {
+  font-family: var(--font-serif);
+  font-size: var(--text-display-2);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-tight);
+}
+
+// -- Overline / eyebrow -------------------------------------------------------
+// The signature "small tracked caps" of the brand.
+.ak-eyebrow {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: var(--text-overline);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  color: var(--color-accent-strong);
+}
+
+// -- Supporting copy ----------------------------------------------------------
+.t-lede {
+  font-size: var(--text-body-lg);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-normal);
+}
+
+.t-caption {
+  font-size: var(--text-caption);
+  color: var(--color-text-secondary);
+}
+
+.t-serif-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: var(--weight-regular);
+}
+
+.t-nav {
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-nav);
+  text-transform: uppercase;
+}

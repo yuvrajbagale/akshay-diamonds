@@ -1,0 +1,26 @@
+<nav class="mbnav" aria-label="Mobile">
+  <a class="mbnav__item" routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }">
+    <ak-icon name="home" size="sm" />
+    <span class="mbnav__label">Home</span>
+  </a>
+
+  <a class="mbnav__item" routerLink="/diamonds" routerLinkActive="is-active">
+    <ak-icon name="gem" size="sm" />
+    <span class="mbnav__label">Diamonds</span>
+  </a>
+
+  <a class="mbnav__item" routerLink="/wishlist" routerLinkActive="is-active">
+    <ak-icon name="heart" size="sm" />
+    <span class="mbnav__label">Wishlist</span>
+  </a>
+
+  <a class="mbnav__item" routerLink="/cart" routerLinkActive="is-active">
+    <ak-icon name="bag" size="sm" />
+    <span class="mbnav__label">Bag</span>
+  </a>
+
+  <button class="mbnav__item" type="button" (click)="ui.menuOpen.set(true)">
+    <ak-icon name="menu" size="sm" />
+    <span class="mbnav__label">Menu</span>
+  </button>
+</nav>

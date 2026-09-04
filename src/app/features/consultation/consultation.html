@@ -1,0 +1,60 @@
+<section class="consult">
+  <div class="consult__container">
+    <ak-breadcrumb [items]="breadcrumbs" />
+    <ak-section-heading title="Speak With a Diamond Expert" subtitle="Whether you're buying your first diamond or selecting an engagement ring, our experts are here to help — with no pressure, no jargon." />
+
+    @if (submitted()) {
+      <div class="consult__confirm">
+        <h2>Thank you.</h2>
+        <p>An expert will reach out to you shortly. If you'd prefer to start the conversation now, message us on WhatsApp.</p>
+        <a akButton variant="primary" [href]="brand.whatsappHref" target="_blank" rel="noopener" (click)="whatsapp()">Message on WhatsApp</a>
+      </div>
+    } @else {
+      <div class="consult__grid">
+        <a class="consult__card" [href]="brand.whatsappHref" target="_blank" rel="noopener" (click)="whatsapp()">
+          <ak-icon name="message" size="lg" />
+          <h3>WhatsApp</h3>
+          <p>Quick, conversational help from a real person.</p>
+        </a>
+        <a class="consult__card" [href]="brand.phoneHref" (click)="phone()">
+          <ak-icon name="phone" size="lg" />
+          <h3>Phone Call</h3>
+          <p>Speak with an expert at a time that suits you.</p>
+        </a>
+        <div class="consult__card">
+          <ak-icon name="video" size="lg" />
+          <h3>Video Consultation</h3>
+          <p>See diamonds in real time from the comfort of home.</p>
+        </div>
+        <div class="consult__card">
+          <ak-icon name="map-pin" size="lg" />
+          <h3>Book a Store Visit</h3>
+          <p>Experience diamonds in person at our studio.</p>
+        </div>
+      </div>
+
+      <form class="consult__form" (ngSubmit)="submit()">
+        <h2>Request a callback</h2>
+        <div class="consult__fields">
+          <label class="field">
+            <span class="field__label">Your name</span>
+            <input class="field__input" type="text" placeholder="Full name" required>
+          </label>
+          <label class="field">
+            <span class="field__label">Phone</span>
+            <input class="field__input" type="tel" placeholder="98xxxxxxxx" required>
+          </label>
+          <label class="field">
+            <span class="field__label">Preferred time</span>
+            <select class="field__input">
+              <option>Morning (10am–12pm)</option>
+              <option>Afternoon (12pm–4pm)</option>
+              <option>Evening (4pm–7pm)</option>
+            </select>
+          </label>
+        </div>
+        <button akButton variant="primary" type="submit">Request Callback</button>
+      </form>
+    }
+  </div>
+</section>

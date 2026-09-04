@@ -1,0 +1,78 @@
+@if (lines(); as items) {
+  <section class="cart">
+    <div class="container">
+      <ak-breadcrumb [items]="[{ label:'Home', route:'/' },{ label:'Bag' }]" />
+      <div class="cart__head">
+        <div>
+          <p class="ak-eyebrow">Your Selection</p>
+          <h1 class="ak-h2">Shopping Bag</h1>
+        </div>
+        <p class="cart__count">{{ items.length }} {{ items.length === 1 ? 'item' : 'items' }}</p>
+      </div>
+      <div class="cart__layout">
+        <div class="cart__items">
+          @for (line of items; track line.item.diamondId) {
+            <article class="cart__item">
+              @if (line.item.type === 'ring' && line.item.ringConfig; as rc) {
+                <div class="cart__shape">
+                  <ak-shape-glyph [shape]="ringShape(rc.diamondShape)" [size]="56" />
+                </div>
+                <div class="cart__info">
+                  <h3 class="cart__name">Custom Ring — {{ rc.settingName }}</h3>
+                  <p class="cart__meta">{{ rc.settingMetal }} &middot; {{ rc.diamondCarat }} ct {{ rc.diamondShape }} &middot; {{ rc.diamondColor }} &middot; {{ rc.diamondClarity }}</p>
+                  <p class="cart__cert">Ring size: US {{ rc.ringSize }}</p>
+                </div>
+              } @else if (line.diamond) {
+                <div class="cart__shape">
+                  <ak-shape-glyph [shape]="shapeOf(line.diamond)" [size]="56" />
+                </div>
+                <div class="cart__info">
+                  <h3 class="cart__name">{{ line.diamond.name }}</h3>
+                  <p class="cart__meta">{{ line.diamond.shape }} &middot; {{ line.diamond.carat }} ct &middot; {{ line.diamond.color }} &middot; {{ line.diamond.clarity }}</p>
+                  <p class="cart__cert">{{ line.diamond.certificate.laboratory }} Certified</p>
+                </div>
+              }
+              <div class="cart__qty">
+                <button akButton variant="ghost" size="sm" (click)="onQty(line.item.diamondId, line.quantity - 1)" [disabled]="line.quantity <= 1">&minus;</button>
+                <span>{{ line.quantity }}</span>
+                <button akButton variant="ghost" size="sm" (click)="onQty(line.item.diamondId, line.quantity + 1)">&plus;</button>
+              </div>
+              <ak-price [value]="line.lineTotal" />
+              <div class="cart__btns">
+                @if (line.diamond) {
+                  <button akButton variant="ghost" size="sm" (click)="saveForLater(line.diamond)">Save</button>
+                }
+                <button akButton variant="ghost" size="sm" (click)="remove(line.item.diamondId)">Remove</button>
+              </div>
+            </article>
+          }
+        </div>
+        <aside class="cart__summary">
+          <h2 class="cart__summary-title">Order Summary</h2>
+          <dl class="cart__summary-lines">
+            <dt>Subtotal</dt><dd><ak-price [value]="subtotal()" /></dd>
+            <dt>Shipping</dt><dd>Complimentary</dd>
+            <dt>Insurance</dt><dd>Complimentary</dd>
+          </dl>
+          <div class="cart__trust">
+            <span> Secure Payments</span>
+            <span> Insured Delivery</span>
+          </div>
+          <div class="cart__total">
+            <span>Total</span>
+            <ak-price [value]="total()" size="lg" />
+          </div>
+          <a akButton variant="accent" size="lg" block routerLink="/checkout" (click)="checkout()">Proceed to Checkout</a>
+          <a akButton variant="ghost" size="sm" block routerLink="/diamonds">Continue Shopping</a>
+        </aside>
+      </div>
+    </div>
+  </section>
+} @else {
+  <div class="container">
+    <ak-empty-state icon="bag" title="Your selection is waiting." description="Your bag is empty — find your perfect diamond to begin.">
+      <a akButton routerLink="/diamonds">Browse Diamonds</a>
+      <a akButton variant="outline" routerLink="/collections">View Collections</a>
+    </ak-empty-state>
+  </div>
+}

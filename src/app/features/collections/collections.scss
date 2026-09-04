@@ -1,0 +1,66 @@
+.collections {
+  padding: var(--space-2xl) 0 var(--space-3xl);
+  background: var(--color-background);
+
+  &__container { width: min(100% - 2rem, var(--container-md)); margin-inline: auto; }
+
+  &__grid {
+    display: grid; grid-template-columns: 1fr; gap: var(--space-lg); margin-top: var(--space-xl);
+
+    @media (min-width: 640px) { grid-template-columns: 1fr 1fr; }
+    @media (min-width: 1024px) { grid-template-columns: 1fr 1fr 1fr; }
+  }
+}
+
+.collection-card {
+  display: flex; flex-direction: column;
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  border-radius: var(--radius-md); overflow: hidden; text-decoration: none;
+  color: var(--color-text-primary);
+  transition: border-color var(--ease-soft), box-shadow var(--ease-soft), transform var(--ease-soft);
+
+  &:hover {
+    border-color: var(--color-accent); box-shadow: var(--shadow-soft);
+    transform: translateY(-2px);
+  }
+
+  &--dark {
+    .collection-card__body { background: var(--color-text-primary); color: var(--color-surface); }
+    .collection-card__story { color: var(--color-text-secondary); }
+    .collection-card__cta { color: var(--color-accent); }
+  }
+
+  &__image {
+    aspect-ratio: 16 / 9; overflow: hidden;
+
+    ::ng-deep .heroimg { border-radius: 0; aspect-ratio: 16 / 9; }
+  }
+
+  &__body {
+    display: flex; flex-direction: column; gap: var(--space-xs);
+    padding: var(--space-lg); flex: 1;
+  }
+
+  &__icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 48px; height: 48px; border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--color-accent) 12%, transparent);
+    color: var(--color-accent);
+  }
+
+  &__name {
+    font-family: var(--font-serif); font-size: var(--step-1); font-weight: 500;
+    line-height: 1.3;
+  }
+
+  &__story {
+    font-size: var(--step--1); color: var(--color-text-secondary); flex: 1;
+    line-height: 1.6;
+  }
+
+  &__cta {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    font-size: var(--step--2); font-weight: 600; color: var(--color-accent);
+    text-transform: uppercase; letter-spacing: 0.06em; margin-top: var(--space-xs);
+  }
+}

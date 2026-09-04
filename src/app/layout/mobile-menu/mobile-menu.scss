@@ -1,0 +1,110 @@
+.menu__item {
+  border-bottom: var(--border-hairline);
+}
+
+.menu__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  width: 100%;
+  padding: var(--space-sm) var(--space-3xs);
+  font-family: var(--font-serif);
+  font-size: var(--text-title-2);
+  line-height: var(--leading-snug);
+  color: var(--color-text-primary);
+  text-align: start;
+}
+
+.menu__link--open {
+  color: var(--color-accent-strong);
+}
+
+.menu__link-arrow {
+  color: var(--color-text-tertiary);
+}
+
+.menu__panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: 0 var(--space-3xs) var(--space-sm);
+  margin-bottom: var(--space-sm);
+  border-left: 2px solid var(--color-accent-soft);
+  margin-left: var(--space-3xs);
+  padding-left: var(--space-sm);
+}
+
+.menu__panel-title {
+  font-size: var(--text-overline);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  margin-top: var(--space-2xs);
+}
+
+.menu__sublist {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu__sublink {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: var(--space-2xs) 0;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-primary);
+}
+
+.menu__subnote {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-regular);
+  color: var(--color-text-secondary);
+}
+
+.menu__footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+  padding-top: var(--space-md);
+  border-top: var(--border-hairline);
+}
+
+.menu__utility {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm) var(--space-md);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+}
+
+.menu__utility a {
+  color: var(--color-text-secondary);
+  transition: color var(--dur-fast) var(--ease-lux);
+}
+
+.menu__utility a:hover {
+  color: var(--color-text-primary);
+}
+
+.menu__contact {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+}
+
+.menu__contact a {
+  color: var(--color-text-primary);
+  font-weight: var(--weight-medium);
+}
+
+.menu__note {
+  font-size: var(--text-caption);
+  color: var(--color-text-secondary);
+}

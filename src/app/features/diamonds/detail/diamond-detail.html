@@ -1,0 +1,135 @@
+@if (diamond(); as d) {
+  <section class="detail">
+    <div class="container">
+      <ak-breadcrumb
+        [items]="[
+          { label: 'Diamonds', route: '/diamonds' },
+          { label: d.name }
+        ]"
+      />
+
+      <div class="detail__grid">
+        <div class="detail__media">
+          <ak-diamond-gallery [diamond]="d" [name]="d.name" />
+        </div>
+
+        <div class="detail__info">
+          <div class="detail__badges">
+            <ak-badge [variant]="d.type === 'lab-grown' ? 'outline' : 'neutral'">
+              {{ d.type === 'lab-grown' ? 'Lab-Grown' : 'Natural' }}
+            </ak-badge>
+            <ak-badge variant="gold">{{ d.certificate.laboratory }} Certified</ak-badge>
+            @if (!d.inventory.available) {
+              <ak-badge variant="outline">Reserved</ak-badge>
+            }
+          </div>
+
+          <h1 class="detail__name">{{ d.name }}</h1>
+          <p class="detail__sku">SKU {{ d.sku }}</p>
+
+          <div class="detail__grades">
+            <span class="detail__shape">
+              <ak-shape-glyph [shape]="shapeName()" [size]="28" />
+              <strong>{{ d.shape }}</strong> Shape
+            </span>
+            <span class="detail__grade">
+              <strong>{{ d.carat }}</strong> ct
+            </span>
+            <span class="detail__grade">
+              <strong>{{ d.color }}</strong> Colour
+            </span>
+            <span class="detail__grade">
+              <strong>{{ d.clarity }}</strong> Clarity
+            </span>
+            <span class="detail__grade">
+              <strong>{{ d.cut }}</strong> Cut
+            </span>
+          </div>
+
+          <div class="detail__price">
+            <ak-price [value]="d.pricing.amount" size="lg" />
+            <span class="detail__per-carat">₹{{ perCarat().toLocaleString('en-IN') }} / ct</span>
+          </div>
+
+          <div class="detail__trust">
+            <span><ak-icon name="shield-check" size="xs" /> Independently Certified</span>
+            <span><ak-icon name="truck" size="xs" /> Insured Delivery</span>
+            <span><ak-icon name="returns" size="xs" /> Easy Returns</span>
+          </div>
+
+          <div class="detail__actions">
+            <button akButton variant="accent" size="lg" block (click)="addToCart()">Add to Bag</button>
+            <button akButton variant="outline" size="lg" block (click)="buyNow()">Buy Now</button>
+          </div>
+
+          <div class="detail__secondary">
+            <button
+              akIconButton
+              [icon]="wishlisted() ? 'heart-filled' : 'heart'"
+              [label]="wishlisted() ? 'Remove from wishlist' : 'Add to wishlist'"
+              [class.is-wishlisted]="wishlisted()"
+              (click)="toggleWishlist()"
+            ></button>
+            <span class="detail__secondary-label">Wishlist</span>
+            <button
+              akIconButton
+              [icon]="compared() ? 'check' : 'compare'"
+              label="Compare this diamond"
+              [class.is-compared]="compared()"
+              (click)="toggleCompare()"
+            ></button>
+            <span class="detail__secondary-label">{{ compared() ? 'Added to Compare' : 'Compare' }}</span>
+          </div>
+
+          <a
+            akButton
+            variant="ghost"
+            size="lg"
+            block
+            routerLink="/consultation"
+            class="detail__expert"
+          >
+            <ak-icon name="message" size="sm" />
+            Talk to a Diamond Expert
+          </a>
+        </div>
+      </div>
+
+      <div class="detail__sections">
+        <section class="detail__section" aria-labelledby="why-title">
+          <p class="ak-eyebrow">Why This Diamond</p>
+          <h2 id="why-title" class="detail__section-title">{{ explanation()?.headline }}</h2>
+          <dl class="detail__why">
+            @for (point of explanation()?.points ?? []; track point.label) {
+              <div class="detail__why-row">
+                <dt>{{ point.label }}</dt>
+                <dd>{{ point.text }}</dd>
+              </div>
+            }
+          </dl>
+        </section>
+
+        <section class="detail__section" aria-labelledby="specs-title">
+          <p class="ak-eyebrow">The Details</p>
+          <h2 id="specs-title" class="detail__section-title">Diamond Specifications</h2>
+          <ak-diamond-specs [diamond]="d" />
+        </section>
+
+        <section class="detail__section" aria-labelledby="cert-title-section">
+          <ak-certificate-card [diamond]="d" />
+        </section>
+      </div>
+    </div>
+  </section>
+} @else {
+  <div class="container">
+    <ak-empty-state
+      icon="search"
+      title="This diamond is no longer available."
+      description="It may have been sold or the link may be incomplete — explore the current collection, or ask an expert to find something similar."
+    >
+      <a akButton routerLink="/diamonds">Browse All Diamonds</a>
+      <a akButton variant="outline" routerLink="/consultation">Speak With an Expert</a>
+    </ak-empty-state>
+  </div>
+}

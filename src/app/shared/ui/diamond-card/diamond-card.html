@@ -1,0 +1,54 @@
+<article class="card" akTilt3D [tiltMax]="6">
+  <div class="card__media">
+    <ak-diamond-image [shape]="shapeName()" size="lg" class="card__image" />
+
+    <ak-badge [variant]="diamond().type === 'lab-grown' ? 'outline' : 'neutral'" class="card__type">
+      {{ diamond().type === 'lab-grown' ? 'Lab-Grown' : 'Natural' }}
+    </ak-badge>
+
+    <button
+      akIconButton
+      size="sm"
+      class="card__wishlist"
+      [class.is-wishlisted]="wishlisted()"
+      [icon]="wishlisted() ? 'heart-filled' : 'heart'"
+      [label]="(wishlisted() ? 'Remove from' : 'Add to') + ' wishlist: ' + diamond().name"
+      (click)="toggleWishlist()"
+    ></button>
+
+    <a class="card__view" [routerLink]="detailRoute()" [attr.aria-label]="'View ' + diamond().name">
+      <span class="card__view-text">View Diamond</span>
+    </a>
+
+    <div class="card__hover">
+      <button
+        type="button"
+        class="card__hover-action"
+        [class.is-active]="compared()"
+        (click)="toggleCompare()"
+      >
+        <ak-icon [name]="compared() ? 'check' : 'compare'" size="sm" />
+        {{ compared() ? 'Added to Compare' : 'Compare' }}
+      </button>
+      <a class="card__hover-action" [routerLink]="detailRoute()">
+        <ak-icon name="award" size="sm" />
+        Certificate
+      </a>
+    </div>
+  </div>
+
+  <div class="card__body">
+    <p class="card__meta">{{ diamond().shape }} · {{ diamond().carat }} ct</p>
+    <a class="card__name" [routerLink]="detailRoute()">{{ diamond().name }}</a>
+    <p class="card__grades">
+      {{ diamond().color }} · {{ diamond().clarity }} · {{ diamond().cut }} Cut
+    </p>
+    <div class="card__row">
+      <ak-price [value]="diamond().pricing.amount" size="md" />
+      <span class="card__cert">
+        <ak-icon name="shield-check" size="xs" />
+        {{ diamond().certificate.laboratory }}
+      </span>
+    </div>
+  </div>
+</article>

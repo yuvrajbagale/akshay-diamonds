@@ -1,0 +1,46 @@
+<section class="cdetail">
+  <div class="cdetail__container">
+    <ak-breadcrumb [items]="breadcrumbs" />
+
+    @if (collection(); as c) {
+      <div class="cdetail__hero">
+        <ak-hero-image [variant]="heroVariant(c)" class="cdetail__hero-image" />
+        <div class="cdetail__hero-overlay" [class.cdetail__hero-overlay--dark]="c.tone === 'dark'">
+          <span class="cdetail__eyebrow">Collection</span>
+          <h1 class="cdetail__title">{{ c.name }}</h1>
+          <p class="cdetail__subtitle">{{ c.story }}</p>
+        </div>
+      </div>
+
+      <div class="cdetail__content">
+        <p class="cdetail__text">{{ c.description }}</p>
+
+        <div class="cdetail__features">
+          <h2 class="cdetail__features-title">What Makes This Collection Special</h2>
+          <ul class="cdetail__list">
+            @for (f of c.features; track f) {
+              <li class="cdetail__feature">
+                <ak-icon name="check" size="sm" />
+                <span>{{ f }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+
+      <div class="cdetail__actions">
+        <a akButton variant="primary" routerLink="/diamonds">Explore Diamonds</a>
+        <a akButton variant="ghost" routerLink="/jewellery">View Jewellery</a>
+        <a akButton variant="ghost" routerLink="/consultation">Speak With an Expert</a>
+      </div>
+    } @else {
+      <ak-empty-state
+        icon="gem"
+        title="Collection not found"
+        description="This collection may have been updated or is no longer available."
+      >
+        <a akButton variant="primary" routerLink="/collections">View All Collections</a>
+      </ak-empty-state>
+    }
+  </div>
+</section>

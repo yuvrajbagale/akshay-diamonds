@@ -1,0 +1,67 @@
+﻿<ak-drawer side="left" heading="Menu" [open]="ui.menuOpen()" (openChange)="ui.menuOpen.set($event)">
+  <nav aria-label="Primary mobile">
+    <ul class="menu">
+      @for (item of navigation.navigation().items; track item.id) {
+        <li class="menu__item">
+          @if (item.panel) {
+            <button
+              type="button"
+              class="menu__link"
+              [class.menu__link--open]="openSectionId() === item.id"
+              [attr.aria-expanded]="openSectionId() === item.id"
+              (click)="toggleSection(item.id)"
+            >
+              {{ item.label }}
+              <ak-icon [name]="openSectionId() === item.id ? 'chevron-up' : 'chevron-down'" size="sm" />
+            </button>
+
+            @if (openSectionId() === item.id) {
+              <div class="menu__panel">
+                @for (column of item.panel.columns; track $index) {
+                  <p class="menu__panel-title">{{ column.title }}</p>
+                  <ul class="menu__sublist">
+                    @for (link of column.links; track $index) {
+                      <li>
+                        <a class="menu__sublink" [routerLink]="link.route" (click)="close()">
+                          <span>{{ link.label }}</span>
+                          @if (link.description) {
+                            <span class="menu__subnote">{{ link.description }}</span>
+                          }
+                        </a>
+                      </li>
+                    }
+                  </ul>
+                }
+              </div>
+            }
+          } @else {
+            <a class="menu__link" [routerLink]="item.route" (click)="close()">
+              {{ item.label }}
+              <ak-icon name="arrow-right" size="sm" class="menu__link-arrow" />
+            </a>
+          }
+        </li>
+      }
+    </ul>
+  </nav>
+
+  <div class="menu__footer">
+    <ul class="menu__utility">
+      <li><a routerLink="/account" (click)="close()">Account</a></li>
+      <li><a routerLink="/wishlist" (click)="close()">Wishlist</a></li>
+      <li><a routerLink="/compare" (click)="close()">Compare Diamonds</a></li>
+    </ul>
+
+    <a akButton variant="accent" block routerLink="/consultation" (click)="close()">
+      Speak With a Diamond Expert
+    </a>
+
+    <div class="menu__contact">
+      <a [href]="brand.phoneHref">{{ brand.phoneDisplay }}</a>
+      <span aria-hidden="true">Â·</span>
+      <a [href]="brand.whatsappHref" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+
+    <p class="menu__note">{{ brand.certificationNote }}</p>
+  </div>
+</ak-drawer>

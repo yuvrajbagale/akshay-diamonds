@@ -1,0 +1,81 @@
+<section class="build">
+  <div class="build__container">
+    <ak-breadcrumb [items]="breadcrumbs" />
+    <ak-section-heading title="Build Your Ring" subtitle="Choose a setting, select your diamond, and create a one-of-a-kind ring." />
+
+    <div class="build__steps">
+      <span class="build__step" [class.is-active]="step() === 'setting'">1. Setting</span>
+      <span class="build__step" [class.is-active]="step() === 'diamond'">2. Diamond</span>
+      <span class="build__step" [class.is-active]="step() === 'review'">3. Review</span>
+    </div>
+
+    @if (step() === 'setting') {
+      <div class="build__grid">
+        @for (s of settings; track s.id) {
+          <button class="setting-card" (click)="pickSetting(s)">
+            <img class="setting-card__image" [src]="settingImage(s)" [alt]="s.name" loading="lazy" decoding="async" />
+            <span class="setting-card__name">{{ s.name }}</span>
+            <span class="setting-card__metal">{{ s.metal }}</span>
+            <ak-price [value]="s.price" />
+          </button>
+        }
+      </div>
+    }
+
+    @if (step() === 'diamond') {
+      <div class="build__selected">
+        <span>Setting: <strong>{{ selectedSetting()?.name }}</strong></span>
+        <button akButton variant="ghost" (click)="back()">Change</button>
+      </div>
+      <div class="build__grid build__grid--small">
+        @for (d of suggestedDiamonds(); track d.id) {
+          <button class="diamond-option" (click)="pickDiamond(d)">
+            <ak-shape-glyph [shape]="shapeOf(d)" [size]="36" />
+            <span class="diamond-option__carat">{{ d.carat }} ct</span>
+            <span class="diamond-option__specs">{{ d.color }} � {{ d.clarity }} � {{ d.cut }}</span>
+            <ak-price [value]="d.pricing.amount" />
+          </button>
+        }
+      </div>
+    }
+
+    @if (step() === 'review') {
+      <div class="review">
+        <div class="review__ring">
+          @if (selectedDiamond(); as d) {
+            <ak-shape-glyph [shape]="shapeOf(d)" [size]="96" />
+          }
+        </div>
+        <div class="review__details">
+          <h2>Your Ring</h2>
+          <dl class="review__list">
+            <dt>Setting</dt>
+            <dd>{{ selectedSetting()?.name }} ({{ selectedSetting()?.metal }})</dd>
+            <dt>Diamond</dt>
+            <dd>{{ selectedDiamond()?.carat }} ct {{ selectedDiamond()?.shape }} � {{ selectedDiamond()?.color }} {{ selectedDiamond()?.clarity }}</dd>
+            <dt>Setting price</dt>
+            <dd><ak-price [value]="selectedSetting()?.price ?? 0" /></dd>
+            <dt>Diamond price</dt>
+            <dd><ak-price [value]="selectedDiamond()?.pricing?.amount ?? 0" /></dd>
+            <dt class="review__total">Total</dt>
+            <dd class="review__total"><ak-price [value]="total()" size="lg" /></dd>
+          </dl>
+          <div class="review__size">
+            <label class="field">
+              <span class="field__label">Ring size</span>
+              <select class="field__input" [value]="ringSize()" (change)="ringSize.set(+$any($event.target).value)">
+                @for (s of [5,6,7,8,9,10,11,12]; track s) {
+                  <option [value]="s">US {{ s }}</option>
+                }
+              </select>
+            </label>
+          </div>
+          <div class="review__actions">
+            <button akButton variant="primary" size="lg" (click)="addToBag()">Add to Bag</button>
+            <button akButton variant="ghost" (click)="back()">Back</button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</section>

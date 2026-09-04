@@ -1,0 +1,24 @@
+<section class="collections">
+  <div class="collections__container">
+    <ak-breadcrumb [items]="breadcrumbs" />
+    <ak-section-heading title="Collections" subtitle="Curated groups of diamonds and jewellery, each with its own story." />
+
+    <div class="collections__grid">
+      @for (c of collections; track c.slug) {
+        <a class="collection-card" [routerLink]="['/collections', c.slug]" [class.collection-card--dark]="c.tone === 'dark'">
+          <div class="collection-card__image">
+            <ak-hero-image [variant]="heroVariant(c.tone)" />
+          </div>
+          <div class="collection-card__body">
+            <span class="collection-card__icon" aria-hidden="true">
+              <ak-icon [name]="c.icon" size="md" />
+            </span>
+            <h3 class="collection-card__name">{{ c.name }}</h3>
+            <p class="collection-card__story">{{ c.story }}</p>
+            <span class="collection-card__cta">Explore Collection <ak-icon name="arrow-right" size="sm" /></span>
+          </div>
+        </a>
+      }
+    </div>
+  </div>
+</section>

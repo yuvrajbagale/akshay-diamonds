@@ -1,0 +1,16 @@
+<section class="learn">
+  <div class="learn__container">
+    <ak-breadcrumb [items]="breadcrumbs" />
+    <ak-section-heading title="Learn" subtitle="Understanding diamonds is the first step to choosing the right one." />
+
+    <div class="learn__grid">
+      @for (topic of topics; track topic.path) {
+        <a class="learn-card" [routerLink]="topic.path">
+          <h3 class="learn-card__title">{{ topic.title }}</h3>
+          <p class="learn-card__desc">{{ topic.desc }}</p>
+          <span class="learn-card__cta">Read</span>
+        </a>
+      }
+    </div>
+  </div>
+</section>

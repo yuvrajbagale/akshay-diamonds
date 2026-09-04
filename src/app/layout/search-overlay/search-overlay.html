@@ -1,0 +1,45 @@
+@if (ui.searchOpen()) {
+  <div class="search" (keydown.escape)="close()">
+    <div class="search__overlay" (click)="close()"></div>
+
+    <div
+      class="search__sheet"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Search"
+      akFocusTrap
+      (click)="$event.stopPropagation()"
+    >
+      <div class="container">
+        <form class="search__bar" (submit)="submit($event)">
+          <ak-icon name="search" class="search__bar-icon" />
+          <label class="u-visually-hidden" for="global-search">Search</label>
+          <input
+            id="global-search"
+            #searchInput
+            class="search__input"
+            type="search"
+            placeholder="Search diamonds, jewellery, guides…"
+            autocomplete="off"
+            [value]="query()"
+            (input)="query.set(searchInput.value)"
+          />
+          <button akIconButton type="button" icon="close" label="Close search" (click)="close()"></button>
+        </form>
+
+        <div class="search__body">
+          <p class="ak-eyebrow">Popular right now</p>
+          <ul class="search__chips">
+            @for (item of trending; track item.label) {
+              <li>
+                <a class="search__chip" [routerLink]="item.route" [queryParams]="item.params ?? null" (click)="close()">
+                  {{ item.label }}
+                </a>
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+}

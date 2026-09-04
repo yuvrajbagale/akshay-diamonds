@@ -1,0 +1,39 @@
+<section class="jewellery">
+  <div class="jewellery__container">
+    <ak-breadcrumb [items]="breadcrumbs" />
+    <ak-section-heading title="Diamond Jewellery" subtitle="Rings, earrings, necklaces, pendants and bracelets — each piece set with certified diamonds." />
+
+    <div class="jewellery__filters">
+      @for (cat of categories(); track cat.slug) {
+        <button class="jewellery__chip" [class.is-active]="activeCategory() === cat.slug" (click)="setCategory(cat.slug)">{{ cat.slug === 'all' ? 'All' : cat.name }}</button>
+      }
+    </div>
+
+    @if (filtered().length === 0) {
+      <ak-empty-state icon="gem" title="No pieces found" description="Try a different category.">
+        <button akButton variant="ghost" (click)="setCategory('')">View All</button>
+      </ak-empty-state>
+    } @else {
+      <p class="jewellery__count">{{ filtered().length }} piece{{ filtered().length > 1 ? 's' : '' }}</p>
+      <div class="jewellery__grid">
+        @for (p of filtered(); track p.id) {
+          <article class="jcard">
+            <div class="jcard__image">
+              <ak-product-image [category]="p.category" size="lg" />
+            </div>
+            <div class="jcard__body">
+              <span class="jcard__category">{{ p.category }}</span>
+              <h3 class="jcard__name">{{ p.name }}</h3>
+              <p class="jcard__metal">{{ p.metal }}</p>
+              <ak-price [value]="p.price" />
+              @if (p.certification) {
+                <span class="jcard__cert">Certified</span>
+              }
+              <button akButton variant="primary" size="sm" (click)="addToCart(p)">Add to Bag</button>
+            </div>
+          </article>
+        }
+      </div>
+    }
+  </div>
+</section>

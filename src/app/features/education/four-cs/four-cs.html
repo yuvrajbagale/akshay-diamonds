@@ -1,0 +1,59 @@
+<section class="edu">
+  <div class="edu__container">
+    <ak-breadcrumb [items]="breadcrumbs" />
+    <ak-section-heading title="The 4Cs" subtitle="Carat, color, clarity and cut — the four characteristics that define a diamond's quality and value." />
+
+    <div class="edu__grid">
+      <article class="cscard">
+        <h2 class="cscard__title">Carat</h2>
+        <p class="cscard__intro">A diamond's weight. One carat equals 200 milligrams. Larger diamonds are rarer and more valuable per carat.</p>
+        <div class="cscard__visual">
+          <span class="cscard__example">0.5 ct</span>
+          <span class="cscard__arrow">→</span>
+          <span class="cscard__example">1.0 ct</span>
+          <span class="cscard__arrow">→</span>
+          <span class="cscard__example">2.0 ct</span>
+        </div>
+        <p class="cscard__note">Two diamonds of equal carat can differ greatly in value based on the other three Cs.</p>
+      </article>
+
+      <article class="cscard">
+        <h2 class="cscard__title">Color</h2>
+        <p class="cscard__intro">Truly colourless diamonds are the rarest. Most diamonds carry subtle warm tones invisible to the untrained eye.</p>
+        <div class="cscard__scale">
+          @for (c of cs; track c) {
+            <span class="cscard__grade" [style.--i]="$index">{{ c }}</span>
+          }
+        </div>
+        <div class="cscard__legend"><span>Exceptional (D)</span><span>Warm (K)</span></div>
+      </article>
+
+      <article class="cscard">
+        <h2 class="cscard__title">Clarity</h2>
+        <p class="cscard__intro">Measures the presence of natural inclusions. Most are microscopic and do not affect beauty.</p>
+        <div class="cscard__scale cscard__scale--vertical">
+          @for (c of clarities; track c) {
+            <span class="cscard__clarity" [style.--i]="$index">{{ c }}</span>
+          }
+        </div>
+        <p class="cscard__note">VS2 and above are typically eye-clean — inclusions are not visible without magnification.</p>
+      </article>
+
+      <article class="cscard">
+        <h2 class="cscard__title">Cut</h2>
+        <p class="cscard__intro">The most important C. Cut determines how light dances within a diamond — its sparkle, fire and brilliance.</p>
+        <div class="cscard__scale">
+          @for (c of cuts; track c) {
+            <span class="cscard__cut" [class.is-best]="$first">{{ c }}</span>
+          }
+        </div>
+        <p class="cscard__note">An Excellent-cut diamond reflects nearly all light that enters it.</p>
+      </article>
+    </div>
+
+    <div class="edu__cta">
+      <a akButton variant="primary" routerLink="/diamonds">Explore Certified Diamonds</a>
+      <a akButton variant="ghost" routerLink="/learn/certification">About Certification</a>
+    </div>
+  </div>
+</section>

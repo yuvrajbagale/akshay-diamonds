@@ -1,0 +1,88 @@
+<section class="jdetail">
+  <div class="jdetail__container">
+    <ak-breadcrumb [items]="breadcrumbs" />
+
+    @if (product(); as p) {
+      <div class="jdetail__grid">
+        <div class="jdetail__gallery">
+          <div class="jdetail__image">
+            <ak-product-image [category]="p.category" size="xl" />
+          </div>
+        </div>
+
+        <div class="jdetail__info">
+          <span class="jdetail__category">{{ categoryName(p.category) }}</span>
+          <h1 class="jdetail__name">{{ p.name }}</h1>
+          <p class="jdetail__desc">{{ p.description }}</p>
+
+          <div class="jdetail__price">
+            <ak-price [value]="p.price" size="lg" />
+          </div>
+
+          <div class="jdetail__specs">
+            <dl class="jdetail__list">
+              <dt>Metal</dt>
+              <dd>{{ p.metal }}</dd>
+              @if (p.diamondCarat) {
+                <dt>Diamond Carat</dt>
+                <dd>{{ p.diamondCarat }} ct</dd>
+              }
+              @if (p.diamondShape) {
+                <dt>Diamond Shape</dt>
+                <dd>{{ p.diamondShape }}</dd>
+              }
+              @if (p.diamondColor) {
+                <dt>Diamond Color</dt>
+                <dd>{{ p.diamondColor }}</dd>
+              }
+              @if (p.diamondClarity) {
+                <dt>Diamond Clarity</dt>
+                <dd>{{ p.diamondClarity }}</dd>
+              }
+              <dt>Certification</dt>
+              <dd>{{ p.certification }}</dd>
+            </dl>
+          </div>
+
+          <div class="jdetail__actions">
+            <button akButton variant="primary" size="lg" (click)="addToCart()">
+              @if (isInCart()) {
+                <ak-icon name="check" size="sm" /> In Your Bag
+              } @else {
+                <ak-icon name="bag" size="sm" /> Add to Bag
+              }
+            </button>
+            <button akButton variant="outline" (click)="toggleWishlist()">
+              @if (isWishlisted()) {
+                <ak-icon name="heart" size="sm" /> Saved
+              } @else {
+                <ak-icon name="heart" size="sm" /> Save
+              }
+            </button>
+          </div>
+
+          <div class="jdetail__trust">
+            <span class="jdetail__trust-item">
+              <ak-icon name="shield-check" size="sm" /> Independently Certified
+            </span>
+            <span class="jdetail__trust-item">
+              <ak-icon name="truck" size="sm" /> Insured Delivery
+            </span>
+            <span class="jdetail__trust-item">
+              <ak-icon name="returns" size="sm" /> Easy Returns
+            </span>
+          </div>
+        </div>
+      </div>
+    } @else {
+      <ak-empty-state
+        icon="gem"
+        title="Product not found"
+        description="This jewellery piece may no longer be available."
+      >
+        <a akButton variant="primary" routerLink="/jewellery">Browse Jewellery</a>
+        <a akButton variant="ghost" routerLink="/consultation">Speak With an Expert</a>
+      </ak-empty-state>
+    }
+  </div>
+</section>

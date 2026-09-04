@@ -1,0 +1,40 @@
+@if (items(); as diamonds) {
+  <section class="wishlist">
+    <div class="container">
+      <ak-breadcrumb [items]="[{ label:'Home', route:'/' },{ label:'Wishlist' }]" />
+      <div class="wishlist__head">
+        <div>
+          <p class="ak-eyebrow">Your Collection</p>
+          <h1 class="ak-h2">Wishlist</h1>
+        </div>
+        <p class="wishlist__count">{{ diamonds.length }} {{ diamonds.length === 1 ? 'diamond' : 'diamonds' }} saved</p>
+      </div>
+      @if (diamonds.length > 0) {
+        <div class="wishlist__grid">
+          @for (d of diamonds; track d.id) {
+            <article class="wishlist__card">
+              <div class="wishlist__shape">
+                <ak-shape-glyph [shape]="shapeOf(d)" [size]="64" />
+              </div>
+              <h3 class="wishlist__name">{{ d.name }}</h3>
+              <p class="wishlist__meta">{{ d.shape }} &middot; {{ d.carat }} ct &middot; {{ d.color }} &middot; {{ d.clarity }}</p>
+              <ak-price [value]="d.pricing.amount" />
+              <div class="wishlist__actions">
+                <button akButton variant="accent" size="sm" block (click)="moveToCart(d)">Add to Bag</button>
+                <div class="wishlist__row">
+                  <a akButton variant="ghost" size="sm" block routerLink="/diamonds/{{ d.slug }}">View</a>
+                  <button akButton variant="ghost" size="sm" block (click)="remove(d.id)">Remove</button>
+                </div>
+              </div>
+            </article>
+          }
+        </div>
+      } @else {
+        <ak-empty-state icon="heart" title="Your collection begins here." description="Save diamonds you love while you explore — they will appear here.">
+          <a akButton routerLink="/diamonds">Explore Diamonds</a>
+          <a akButton variant="outline" routerLink="/collections">View Collections</a>
+        </ak-empty-state>
+      }
+    </div>
+  </section>
+}

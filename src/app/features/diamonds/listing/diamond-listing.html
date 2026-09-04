@@ -1,0 +1,108 @@
+<section class="listing" aria-labelledby="listing-title">
+  <header class="listing__head">
+    <div class="container">
+      <p class="ak-eyebrow">The Catalogue</p>
+      <h1 id="listing-title" class="listing__title">Diamonds</h1>
+      <p class="listing__lede">
+        Every diamond independently certified, honestly priced and presented in plain sight.
+      </p>
+    </div>
+  </header>
+
+  <div class="container listing__body">
+    <aside class="listing__sidebar" aria-label="Filter diamonds">
+      @if (facets().shapeCounts['round'] !== undefined) {
+        <ak-diamond-filters [filters]="filters()" [facets]="facets()" (filtersChange)="apply($event)" />
+      }
+    </aside>
+
+    <div class="listing__main">
+      <div class="listing__toolbar">
+        <p class="listing__count">{{ count() }} {{ count() === 1 ? 'diamond' : 'diamonds' }} found</p>
+
+        <div class="listing__segmented" role="group" aria-label="Diamond type">
+          <button type="button" [class.is-active]="!filters().type" (click)="apply({ ...filters(), type: undefined })">
+            All
+          </button>
+          <button type="button" [class.is-active]="filters().type === 'natural'" (click)="setType('natural')">
+            Natural
+          </button>
+          <button type="button" [class.is-active]="filters().type === 'lab-grown'" (click)="setType('lab-grown')">
+            Lab-Grown
+          </button>
+        </div>
+
+        @if (compare.count() > 0) {
+          <a class="listing__compare" routerLink="/compare">
+            <ak-icon name="compare" size="sm" />
+            Compare ({{ compare.count() }})
+          </a>
+        }
+
+        <button type="button" class="listing__filter-toggle" (click)="filtersOpen.set(true)">
+          <ak-icon name="sliders" size="sm" />
+          Filters
+          @if (activeCount(filters()) > 0) {
+            <span class="listing__filter-count">{{ activeCount(filters()) }}</span>
+          }
+        </button>
+
+        <label class="listing__sort">
+          <span class="u-visually-hidden">Sort diamonds</span>
+          <select [value]="filters().sort ?? 'recommended'" (change)="setSort($event)">
+            @for (option of sortOptions; track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
+          <ak-icon name="chevron-down" size="xs" class="listing__sort-icon" />
+        </label>
+      </div>
+
+      <form class="listing__search" (submit)="search($event)">
+        <ak-icon name="search" size="sm" class="listing__search-icon" />
+        <label class="u-visually-hidden" for="listing-search">Search diamonds</label>
+        <input
+          id="listing-search"
+          type="search"
+          autocomplete="off"
+          placeholder="Search by shape, grade, certificate…"
+          [value]="query()"
+          (input)="query.set($any($event.target).value)"
+        />
+      </form>
+
+      @if (diamonds.loading()) {
+        <div class="listing__grid" aria-label="Loading diamonds">
+          @for (_ of skeletonItems(); track $index) {
+            <div class="listing__skeleton">
+              <ak-skeleton shape="block" height="100%"></ak-skeleton>
+              <ak-skeleton height="0.75rem"></ak-skeleton>
+              <ak-skeleton height="0.75rem" width="70%"></ak-skeleton>
+            </div>
+          }
+        </div>
+      } @else if (count() === 0) {
+        <ak-empty-state
+          icon="search"
+          title="No diamonds match those exact choices."
+          description="Try widening the budget or clearing a grade — or speak with an expert who can source exactly this stone for you."
+        >
+          <button akButton variant="outline" (click)="apply({ sort: 'recommended' })">Clear Filters</button>
+          <a akButton variant="ghost" routerLink="/consultation">Speak With an Expert</a>
+        </ak-empty-state>
+      } @else {
+        <div class="listing__grid">
+          @for (diamond of results(); track diamond.id) {
+            <ak-diamond-card [diamond]="diamond" />
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  <ak-drawer heading="Filters" [open]="filtersOpen()" (openChange)="filtersOpen.set($event)">
+    @if (facets().shapeCounts['round'] !== undefined) {
+      <ak-diamond-filters [filters]="filters()" [facets]="facets()" (filtersChange)="apply($event)" />
+    }
+  </ak-drawer>
+</section>

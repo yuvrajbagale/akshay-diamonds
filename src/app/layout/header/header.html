@@ -1,0 +1,57 @@
+﻿<header class="header" [class.header--scrolled]="scrolled()">
+  <div class="header__announce">
+    <p>{{ brand.announcement }}</p>
+  </div>
+
+  <div class="header__bar">
+    <div class="container header__inner">
+      <a routerLink="/" class="header__logo" aria-label="Akshay Diamonds â€” home" (click)="closeEverything()">
+        <ak-brand-logo />
+      </a>
+
+      <nav class="header__nav" aria-label="Primary">
+        <ul class="header__nav-list">
+          @for (item of navigation.navigation().items; track item.id) {
+            <li
+              class="header__nav-item"
+              (mouseenter)="item.panel ? openPanel(item.id) : closePanels()"
+              (mouseleave)="item.panel ? scheduleClose() : null"
+              (focusin)="item.panel ? openPanel(item.id) : null"
+              (focusout)="onItemFocusOut($event)"
+            >
+              @if (item.panel) {
+                <button
+                  type="button"
+                  class="header__nav-link"
+                  [class.header__nav-link--open]="openPanelId() === item.id"
+                  [attr.aria-expanded]="openPanelId() === item.id"
+                  [attr.aria-controls]="'mega-' + item.id"
+                  (click)="togglePanel(item.id)"
+                >
+                  {{ item.label }}
+                  <ak-icon name="chevron-down" size="xs" />
+                </button>
+              } @else {
+                <a class="header__nav-link" [routerLink]="item.route" (click)="closePanels()">
+                  {{ item.label }}
+                </a>
+              }
+
+              @if (item.panel && openPanelId() === item.id) {
+                <ak-mega-menu [item]="item" (navigated)="closePanels()" />
+              }
+            </li>
+          }
+        </ul>
+      </nav>
+
+      <div class="header__actions">
+        <button akIconButton type="button" icon="search" label="Search" (click)="openSearch()"></button>
+        <a akIconButton class="header__action-account" routerLink="/account" icon="user" label="Account"></a>
+        <a akIconButton routerLink="/wishlist" icon="heart" label="Wishlist"></a>
+        <a akIconButton routerLink="/cart" icon="bag" label="Shopping bag"></a>
+        <button akIconButton type="button" class="header__menu-toggle" icon="menu" label="Open menu" (click)="openMenu()"></button>
+      </div>
+    </div>
+  </div>
+</header>

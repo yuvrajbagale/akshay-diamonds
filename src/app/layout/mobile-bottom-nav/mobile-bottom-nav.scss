@@ -1,0 +1,44 @@
+.mbnav {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: var(--z-bottom-nav);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  height: var(--bottom-nav-height);
+  background: color-mix(in srgb, var(--color-bg) 94%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: var(--border-hairline);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.mbnav__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  color: var(--color-text-secondary);
+  transition: color var(--dur-fast) var(--ease-lux);
+}
+
+.mbnav__item:hover,
+.mbnav__item.is-active {
+  color: var(--color-accent-strong);
+}
+
+.mbnav__item.is-active .mbnav__label {
+  font-weight: var(--weight-semibold);
+}
+
+.mbnav__label {
+  font-size: 0.625rem;
+  letter-spacing: 0.04em;
+}
+
+@media (min-width: 1024px) {
+  .mbnav {
+    display: none;
+  }
+}

@@ -1,0 +1,137 @@
+// The host is display:contents so the panel positions against the sticky
+// header itself (full-bleed), not against the nav item.
+:host {
+  display: contents;
+}
+
+.mega {
+  position: absolute;
+  inset-inline: 0;
+  top: 100%;
+  background: var(--color-bg);
+  border-top: var(--border-hairline);
+  border-bottom: var(--border-hairline);
+  box-shadow: var(--shadow-md);
+  animation: ak-slide-down var(--dur-fast) var(--ease-lux) both;
+}
+
+.mega__inner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-xl);
+  padding-block: var(--space-lg) var(--space-xl);
+}
+
+.mega__column {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.mega__column-title {
+  margin-bottom: var(--space-sm);
+  font-size: var(--text-overline);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+.mega__links {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mega__link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.45rem 0.65rem;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--dur-fast) var(--ease-lux);
+}
+
+.mega__link:hover {
+  background: var(--color-surface-muted);
+}
+
+.mega__link-label {
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-primary);
+  transition: color var(--dur-fast) var(--ease-lux);
+}
+
+.mega__link:hover .mega__link-label {
+  color: var(--color-accent-strong);
+}
+
+.mega__link-description {
+  font-size: var(--text-caption);
+  color: var(--color-text-secondary);
+}
+
+.mega__feature {
+  flex: 0 0 17rem;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2xs);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  background: var(--color-accent-soft);
+  transition: box-shadow var(--dur-fast) var(--ease-lux);
+}
+
+.mega__feature:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+.mega__feature-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-bottom: var(--space-2xs);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-accent-strong);
+}
+
+.mega__feature-title {
+  font-family: var(--font-serif);
+  font-size: var(--text-title-2);
+  line-height: var(--leading-snug);
+  color: var(--color-text-primary);
+}
+
+.mega__feature-description {
+  font-size: var(--text-caption);
+  line-height: var(--leading-normal);
+  color: var(--color-text-secondary);
+}
+
+.mega__feature-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: var(--space-2xs);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-nav);
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  transition: color var(--dur-fast) var(--ease-lux);
+}
+
+.mega__feature:hover .mega__feature-cta {
+  color: var(--color-accent-strong);
+}
+
+@media (max-width: 1023.98px) {
+  .mega {
+    display: none;
+  }
+}

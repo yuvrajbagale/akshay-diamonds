@@ -1,0 +1,544 @@
+// -- Hero -------------------------------------------------------------------
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: min(88svh, 52rem);
+  padding-block: var(--space-3xl) var(--space-xl);
+  overflow: hidden;
+}
+
+// Gold shimmer on black — atmospheric luxury glow.
+.hero__glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(52rem 30rem at 78% 18%, rgb(212 167 106 / 18%), transparent 62%),
+    radial-gradient(40rem 26rem at 12% 88%, rgb(232 200 130 / 12%), transparent 60%),
+    radial-gradient(30rem 20rem at 50% 50%, rgb(212 167 106 / 6%), transparent 50%),
+    linear-gradient(180deg, var(--color-bg) 0%, var(--color-surface) 100%);
+  pointer-events: none;
+}
+
+// Floating gold particles
+.hero__particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero__particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  opacity: 0;
+  animation: ak-float-slow var(--dur-float) var(--ease-in-out) infinite;
+
+  &--1 {
+    top: 20%;
+    left: 15%;
+    animation-delay: 0s;
+    animation-duration: 7s;
+    opacity: 0.3;
+    width: 3px;
+    height: 3px;
+  }
+
+  &--2 {
+    top: 60%;
+    right: 20%;
+    animation-delay: -2s;
+    animation-duration: 9s;
+    opacity: 0.2;
+    width: 5px;
+    height: 5px;
+  }
+
+  &--3 {
+    top: 35%;
+    left: 70%;
+    animation-delay: -4s;
+    animation-duration: 6s;
+    opacity: 0.25;
+    width: 2px;
+    height: 2px;
+  }
+
+  &--4 {
+    bottom: 25%;
+    left: 40%;
+    animation-delay: -1s;
+    animation-duration: 8s;
+    opacity: 0.15;
+    width: 6px;
+    height: 6px;
+  }
+
+  &--5 {
+    top: 45%;
+    right: 10%;
+    animation-delay: -3s;
+    animation-duration: 10s;
+    opacity: 0.2;
+    width: 3px;
+    height: 3px;
+  }
+}
+
+.hero__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hero__title {
+  margin-top: var(--space-sm);
+  font-size: var(--text-display-1);
+  color: var(--color-text-primary);
+  animation: ak-blur-in 1.2s var(--ease-lux) both;
+  animation-delay: 0.3s;
+}
+
+.hero__lede {
+  max-width: 36rem;
+  margin-top: var(--space-md);
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-normal);
+  color: var(--color-text-secondary);
+  animation: ak-slide-up 0.8s var(--ease-lux) both;
+  animation-delay: 0.6s;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-xl);
+  animation: ak-slide-up 0.8s var(--ease-lux) both;
+  animation-delay: 0.9s;
+}
+
+.hero__foot {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-2xl);
+  font-size: var(--text-overline);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  animation: ak-fade-in 1s var(--ease-lux) both;
+  animation-delay: 1.2s;
+}
+
+.hero__foot-dot {
+  color: var(--color-accent-strong);
+  animation: ak-glow-pulse 2s var(--ease-in-out) infinite;
+}
+
+// -- Trust strip --------------------------------------------------------------
+.trust {
+  border-bottom: var(--border-hairline);
+  background: var(--color-surface);
+}
+
+.trust__list {
+  display: flex;
+  gap: var(--space-md);
+  padding-block: var(--space-md);
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-snap-type: x proximity;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.trust__item {
+  flex: 1 0 auto;
+  scroll-snap-align: start;
+}
+
+// -- Learn (education paths) ---------------------------------------------------
+.learn {
+  padding-block: var(--section-pad-y);
+  border-top: var(--border-hairline);
+}
+
+.learn__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+  margin-top: var(--space-2xl);
+}
+
+.learn__card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2xs);
+  padding: var(--space-lg);
+  border: var(--border-hairline);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  transition:
+    box-shadow var(--dur-base) var(--ease-lux),
+    transform var(--dur-base) var(--ease-lux),
+    border-color var(--dur-base) var(--ease-lux);
+
+  &:hover {
+    border-color: var(--color-border-strong);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+
+    .learn__cta {
+      color: var(--color-accent-strong);
+      gap: 0.6rem;
+    }
+  }
+}
+
+.learn__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: var(--space-2xs);
+  border-radius: var(--radius-pill);
+  border: var(--border-hairline);
+  background: var(--color-surface-muted);
+  color: var(--color-accent-strong);
+}
+
+.learn__title {
+  font-family: var(--font-serif);
+  font-size: var(--text-title-2);
+  line-height: var(--leading-snug);
+  color: var(--color-text-primary);
+}
+
+.learn__description {
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-normal);
+  color: var(--color-text-secondary);
+}
+
+.learn__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: var(--space-sm);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-nav);
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  transition:
+    color var(--dur-fast) var(--ease-lux),
+    gap var(--dur-fast) var(--ease-lux);
+}
+
+// -- Shop by shape ----------------------------------------------------------------
+.shapes {
+  padding-block: var(--section-pad-y) var(--space-2xl);
+}
+
+.shapes__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-sm);
+  margin-top: var(--space-2xl);
+}
+
+.shapes__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.2rem;
+  padding: var(--space-lg) var(--space-sm);
+  border: var(--border-hairline);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  transition:
+    box-shadow var(--dur-base) var(--ease-lux),
+    transform 0.15s var(--ease-lux),
+    border-color var(--dur-base) var(--ease-lux);
+
+  &:hover {
+    border-color: var(--color-border-strong);
+    box-shadow: var(--shadow-md);
+
+    .shapes__glyph {
+      color: var(--color-accent-strong);
+      transform: scale(1.1);
+    }
+  }
+}
+
+.shapes__glyph {
+  color: var(--color-accent);
+  margin-bottom: var(--space-2xs);
+  transition:
+    color var(--dur-fast) var(--ease-lux),
+    transform var(--dur-base) var(--ease-spring);
+}
+
+.shapes__label {
+  font-family: var(--font-serif);
+  font-size: var(--text-title-3);
+  color: var(--color-text-primary);
+}
+
+.shapes__description {
+  font-size: var(--text-caption);
+  color: var(--color-text-secondary);
+}
+
+// -- Featured collections -------------------------------------------------------
+.collections {
+  padding-block: var(--space-2xl);
+}
+
+.collections__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+  margin-top: var(--space-2xl);
+}
+
+.collection-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2xs);
+  border: var(--border-hairline);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  overflow: hidden;
+  transition:
+    box-shadow var(--dur-base) var(--ease-lux),
+    transform 0.15s var(--ease-lux),
+    border-color var(--dur-base) var(--ease-lux);
+
+  &:hover {
+    border-color: var(--color-border-strong);
+    box-shadow: var(--shadow-md);
+
+    .collection-card__cta {
+      color: var(--color-accent-strong);
+      gap: 0.6rem;
+    }
+
+    .collection-card__ornament {
+      transform: rotate(10deg) scale(1.1);
+    }
+  }
+}
+
+.collection-card__image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+
+  ::ng-deep .heroimg {
+    border-radius: 0;
+    aspect-ratio: 16 / 9;
+  }
+}
+
+.collection-card__ornament {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  margin: var(--space-sm) var(--space-xl) 0;
+  border-radius: var(--radius-pill);
+  border: var(--border-hairline);
+  background: var(--color-surface-muted);
+  color: var(--color-accent-strong);
+  transition:
+    transform var(--dur-base) var(--ease-spring),
+    box-shadow var(--dur-base) var(--ease-lux);
+}
+
+.collection-card__name {
+  font-family: var(--font-serif);
+  font-size: var(--text-title-1);
+  line-height: var(--leading-snug);
+  padding-inline: var(--space-xl);
+}
+
+.collection-card__story {
+  font-size: var(--text-body);
+  line-height: var(--leading-normal);
+  color: var(--color-text-secondary);
+  max-width: 30rem;
+  padding-inline: var(--space-xl);
+}
+
+.collection-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: auto;
+  padding: var(--space-md) var(--space-xl);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-nav);
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  transition:
+    color var(--dur-fast) var(--ease-lux),
+    gap var(--dur-fast) var(--ease-lux);
+}
+
+// -- Occasions ----------------------------------------------------------------------
+.occasions {
+  padding-block: var(--space-2xl);
+}
+
+.occasions__list {
+  display: grid;
+  grid-template-columns: 1fr;
+  max-width: 52rem;
+  margin-inline: auto;
+  margin-top: var(--space-2xl);
+  border-top: var(--border-hairline);
+}
+
+.occasions__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-2xs);
+  border-bottom: var(--border-hairline);
+  transition: background-color var(--dur-fast) var(--ease-lux);
+
+  &:hover {
+    background: var(--color-surface);
+
+    .occasions__arrow {
+      transform: translateX(4px);
+      color: var(--color-accent-strong);
+    }
+  }
+}
+
+.occasions__name {
+  min-width: 9rem;
+  font-family: var(--font-serif);
+  font-size: var(--text-title-2);
+  color: var(--color-text-primary);
+}
+
+.occasions__story {
+  flex: 1;
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+}
+
+.occasions__arrow {
+  color: var(--color-text-tertiary);
+  transition:
+    transform var(--dur-fast) var(--ease-lux),
+    color var(--dur-fast) var(--ease-lux);
+}
+
+// -- Consultation conversion band -----------------------------------------------------
+.consult {
+  margin-bottom: calc(-1 * var(--section-pad-y));
+  padding-block: var(--section-pad-y);
+  padding-bottom: calc(var(--section-pad-y) + var(--space-2xl));
+}
+
+.consult__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.consult__title {
+  margin-top: var(--space-sm);
+  font-size: var(--text-display-2);
+}
+
+.consult__copy {
+  margin-top: var(--space-md);
+  max-width: 38rem;
+  line-height: var(--leading-normal);
+  color: var(--color-text-secondary);
+}
+
+.consult__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-xl);
+}
+
+.consult__contact {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  margin-top: var(--space-lg);
+  font-size: var(--text-caption);
+  color: var(--color-text-tertiary);
+}
+
+.consult__contact a {
+  color: var(--color-text-secondary);
+  font-weight: var(--weight-medium);
+  transition: color var(--dur-fast) var(--ease-lux);
+
+  &:hover {
+    color: var(--color-text-primary);
+  }
+}
+
+.consult__contact-dot {
+  color: var(--color-accent-strong);
+}
+
+@media (min-width: 640px) {
+  .shapes__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .trust__list {
+    overflow-x: visible;
+    justify-content: space-between;
+  }
+
+  .trust__item {
+    flex: 0 1 auto;
+  }
+}
+
+@media (min-width: 900px) {
+  .learn__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .collections__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
