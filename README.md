@@ -225,4 +225,5 @@ caching for hashed bundles, no-cache for index.html.
 Replace the placeholder contact details in `src/app/core/config/brand.config.ts` (phone,
 WhatsApp, email, address, social profiles) and confirm every trust claim matches reality.
 #   a k s h a y - d i a m o n d s  
+ #   a k s h a y - d i a m o n d s  
  
