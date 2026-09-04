@@ -44,6 +44,7 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
       line-height: 1;
       cursor: pointer;
       white-space: nowrap;
+      text-decoration: none;
       transition:
         background-color var(--dur-fast) var(--ease-lux),
         border-color var(--dur-fast) var(--ease-lux),
@@ -62,15 +63,15 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
     }
 
     .ak-button--sm {
-      padding: 0.75em 1.5em;
+      padding: 0.625em 1.25em;
     }
 
     .ak-button--md {
-      padding: 1.05em 2.1em;
+      padding: 0.875em 1.75em;
     }
 
     .ak-button--lg {
-      padding: 1.2em 2.6em;
+      padding: 1em 2em;
       font-size: var(--text-body-sm);
     }
 

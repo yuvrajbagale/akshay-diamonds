@@ -3,11 +3,17 @@
     <ak-breadcrumb [items]="breadcrumbs" />
     <ak-section-heading title="Build Your Ring" subtitle="Choose a setting, select your diamond, and create a one-of-a-kind ring." />
 
-    <div class="build__steps">
-      <span class="build__step" [class.is-active]="step() === 'setting'">1. Setting</span>
-      <span class="build__step" [class.is-active]="step() === 'diamond'">2. Diamond</span>
-      <span class="build__step" [class.is-active]="step() === 'review'">3. Review</span>
-    </div>
+    <nav class="build__steps" aria-label="Build progress">
+      <span class="build__step" [class.is-active]="step() === 'setting'" [attr.aria-current]="step() === 'setting' ? 'step' : null">
+        <span class="build__step-num">1</span> Setting
+      </span>
+      <span class="build__step" [class.is-active]="step() === 'diamond'" [attr.aria-current]="step() === 'diamond' ? 'step' : null">
+        <span class="build__step-num">2</span> Diamond
+      </span>
+      <span class="build__step" [class.is-active]="step() === 'review'" [attr.aria-current]="step() === 'review' ? 'step' : null">
+        <span class="build__step-num">3</span> Review
+      </span>
+    </nav>
 
     @if (step() === 'setting') {
       <div class="build__grid">

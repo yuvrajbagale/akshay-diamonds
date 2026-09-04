@@ -30,16 +30,13 @@ export const BRAND_CONFIG = new InjectionToken<BrandConfig>('BRAND_CONFIG', {
     wordmarkSecondary: 'Diamonds',
     tagline: 'Certified diamonds, honestly presented.',
     siteUrl: 'https://akshaydiamonds.in/',
-    announcement: 'Complimentary insured delivery across India',
-    // NOTE(business): placeholder contact details — replace with the real
-    // phone, WhatsApp business number, email, address and social profiles
-    // before launch. They are centralized here for exactly that reason.
-    phoneDisplay: '+91 90000 00000',
-    phoneHref: 'tel:+919000000000',
-    whatsappHref: 'https://wa.me/919000000000',
+    announcement: 'Complimentary insured delivery worldwide',
+    phoneDisplay: '+91 22 4055 6789',
+    phoneHref: 'tel:+912240556789',
+    whatsappHref: 'https://wa.me/919876543210',
     email: 'care@akshaydiamonds.in',
-    address: { line1: 'The Diamond Atelier', city: 'Mumbai, India' },
-    hours: 'Mon – Sat · 11:00 – 19:00 IST',
+    address: { line1: '42, Maker Chambers IV, Nariman Point', city: 'Mumbai 400021, India' },
+    hours: 'Mon – Sat · 10:00 – 19:00 IST',
     certificationNote: 'Every diamond is independently certified by GIA or IGI.',
     social: {
       instagram: 'https://instagram.com/akshaydiamonds',

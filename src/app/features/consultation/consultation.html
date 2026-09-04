@@ -38,15 +38,23 @@
         <div class="consult__fields">
           <label class="field">
             <span class="field__label">Your name</span>
-            <input class="field__input" type="text" placeholder="Full name" required>
+            <input class="field__input" type="text" placeholder="Full name" required
+                   [ngModel]="name()" (ngModelChange)="validateName($event)" name="name">
+            @if (nameError()) {
+              <span class="field__error" role="alert">{{ nameError() }}</span>
+            }
           </label>
           <label class="field">
             <span class="field__label">Phone</span>
-            <input class="field__input" type="tel" placeholder="98xxxxxxxx" required>
+            <input class="field__input" type="tel" placeholder="98xxxxxxxx" required
+                   [ngModel]="phoneValue()" (ngModelChange)="validatePhone($event)" name="phone">
+            @if (phoneError()) {
+              <span class="field__error" role="alert">{{ phoneError() }}</span>
+            }
           </label>
           <label class="field">
             <span class="field__label">Preferred time</span>
-            <select class="field__input">
+            <select class="field__input" [(ngModel)]="preferredTime" name="time">
               <option>Morning (10am–12pm)</option>
               <option>Afternoon (12pm–4pm)</option>
               <option>Evening (4pm–7pm)</option>

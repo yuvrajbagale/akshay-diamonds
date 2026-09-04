@@ -107,6 +107,16 @@ export const routes: Route[] = [
     title: 'Order Confirmed',
   },
   {
+    path: 'privacy',
+    loadComponent: () => import('./features/legal/privacy').then(m => m.PrivacyPage),
+    title: 'Privacy Policy',
+  },
+  {
+    path: 'terms',
+    loadComponent: () => import('./features/legal/terms').then(m => m.TermsPage),
+    title: 'Terms of Service',
+  },
+  {
     path: '**',
     loadComponent: () => import('./features/not-found/not-found').then(m => m.NotFound),
   },

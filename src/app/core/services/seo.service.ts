@@ -32,8 +32,8 @@ export class SeoService {
   private readonly brand = inject(BRAND_CONFIG);
   private readonly document = inject(DOCUMENT);
 
-  setPageMeta(options: { title?: string; description?: string; path?: string }): void {
-    const { title, description, path = '/' } = options;
+  setPageMeta(options: { title?: string; description?: string; path?: string; image?: string }): void {
+    const { title, description, path = '/', image } = options;
 
     if (title) {
       this.title.setTitle(`${title}${TITLE_SUFFIX}`);
@@ -44,6 +44,10 @@ export class SeoService {
       this.meta.updateTag({ property: 'og:description', content: description });
       this.meta.updateTag({ name: 'twitter:description', content: description });
     }
+
+    const imageUrl = image ?? `${this.brand.siteUrl}assets/og-image.jpg`;
+    this.meta.updateTag({ property: 'og:image', content: imageUrl });
+    this.meta.updateTag({ name: 'twitter:image', content: imageUrl });
 
     this.setCanonical(`${this.brand.siteUrl}${path.replace(/^\//, '')}`);
   }

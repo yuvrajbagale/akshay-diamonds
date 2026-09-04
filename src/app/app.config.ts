@@ -9,6 +9,7 @@ import {
 
 import { routes } from './app.routes';
 import { AppTitleStrategy } from './core/services/seo.service';
+import { provideAnalytics } from './core/services/provide-analytics';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,5 +21,6 @@ export const appConfig: ApplicationConfig = {
       withViewTransitions(),
     ),
     { provide: TitleStrategy, useClass: AppTitleStrategy },
+    provideAnalytics(),
   ],
 };

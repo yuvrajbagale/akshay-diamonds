@@ -6,6 +6,7 @@ import { WishlistService } from '../../../core/services/wishlist.service';
 import { CompareService } from '../../../core/services/compare.service';
 import { AnalyticsService } from '../../../core/services/analytics.service';
 import { SeoService } from '../../../core/services/seo.service';
+import { BRAND_CONFIG, BrandConfig } from '../../../core/config/brand.config';
 import { explainDiamond } from '../../../core/utils/diamond-explaner';
 import { UiBreadcrumb } from '../../../shared/ui/breadcrumb/ui-breadcrumb';
 import { DiamondGallery } from '../../../shared/ui/diamond-gallery/diamond-gallery';
@@ -52,6 +53,7 @@ export class DiamondDetail {
   private readonly compare = inject(CompareService);
   private readonly analytics = inject(AnalyticsService);
   private readonly seo = inject(SeoService);
+  private readonly brand = inject<BrandConfig>(BRAND_CONFIG);
 
   protected readonly slug = signal(this.route.snapshot.paramMap.get('slug') ?? '');
   protected readonly diamond = computed(() => this.diamonds.getBySlug(this.slug()));
@@ -75,12 +77,37 @@ export class DiamondDetail {
   );
 
   constructor() {
+    const d = this.diamond();
     this.seo.setPageMeta({
-      title: this.diamond()?.name ?? 'Diamond',
-      description: `Explore a certified ${this.diamond()?.shape ?? ''} diamond — ₹${(this.diamond()?.pricing.amount ?? 0).toLocaleString('en-IN')} · ${this.diamond()?.carat ?? ''} ct · ${this.diamond()?.color ?? ''} · ${this.diamond()?.clarity ?? ''}.`,
-      path: this.diamond()?.slug ? `/diamonds/${this.diamond()!.slug}` : '/diamonds',
+      title: d?.name ?? 'Diamond',
+      description: `Explore a certified ${d?.shape ?? ''} diamond — ₹${(d?.pricing.amount ?? 0).toLocaleString('en-IN')} · ${d?.carat ?? ''} ct · ${d?.color ?? ''} · ${d?.clarity ?? ''}.`,
+      path: d?.slug ? `/diamonds/${d.slug}` : '/diamonds',
     });
-    this.analytics.track('diamond_viewed', { id: this.diamond()?.id });
+
+    if (d) {
+      this.seo.setJsonLd('product-jsonld', {
+        '@context': 'https://schema.org',
+        '@type': 'Product',
+        name: d.name,
+        description: `${d.shape} diamond — ${d.carat}ct, ${d.color}, ${d.clarity}, ${d.cut} cut. Certified by ${d.certificate.laboratory}.`,
+        image: d.media.images?.[0] ?? '',
+        brand: { '@type': 'Brand', name: 'Akshay Diamonds' },
+        offers: {
+          '@type': 'Offer',
+          price: d.pricing.amount,
+          priceCurrency: 'INR',
+          availability: 'https://schema.org/InStock',
+          url: `${this.brand.siteUrl}diamonds/${d.slug}`,
+        },
+        certification: {
+          '@type': 'EducationalOccupationalCredential',
+          credentialCategory: d.certificate.laboratory,
+          identifier: d.certificate.number,
+        },
+      });
+    }
+
+    this.analytics.track('diamond_viewed', { id: d?.id });
   }
 
   protected addToCart(): void {
